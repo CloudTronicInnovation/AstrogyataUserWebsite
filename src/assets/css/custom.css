@@ -1,0 +1,56 @@
+.firstcol {
+  padding-top: 15rem;
+}
+
+.firstcol p {
+  color: black;
+  font-weight: 100;
+}
+
+.secondcol {
+  padding-top: 20rem;
+}
+
+.secondcol p {
+  color: black;
+  font-weight: 100;
+}
+
+.fourthsection {
+  padding-top: 15rem;
+  padding-left: 3rem;
+}
+
+.fourthsection h1 {
+  font-family: "Playfair display", sans-serif;
+  font-weight: 500;
+  font-size: 3rem;
+  letter-spacing: 0.6px;
+  line-height: 4rem;
+}
+
+.fourthsection h5 {
+  padding-top: 2rem;
+  font-family: "Playfair display", sans-serif;
+  letter-spacing: 0.6px;
+  line-height: 2rem;
+}
+
+.map-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 2rem;
+}
+
+.map-title h5 {
+  font-family: "Playfair display", sans-serif;
+  letter-spacing: 0.6px;
+}
+
+.map-title h1 {
+  font-family: "Playfair display", sans-serif;
+  font-weight: 500;
+  font-size: 3rem;
+  letter-spacing: 0.6px;
+}

@@ -1,0 +1,428 @@
+:root {
+  /* --primary-color: ; */
+	--secondary-color: #ffcc01;
+}
+img {
+  max-width: 100%;
+}
+
+.preview {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 996px) {
+  .preview {
+    margin-bottom: 20px;
+  }
+}
+
+.preview-pic {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.preview-thumbnail.nav-tabs {
+  border: none;
+  margin-top: 15px;
+}
+
+.preview-thumbnail.nav-tabs li {
+  width: 18%;
+  margin-right: 2.5%;
+}
+
+.preview-thumbnail.nav-tabs li img {
+  max-width: 100%;
+  display: block;
+}
+
+.preview-thumbnail.nav-tabs li a {
+  padding: 0;
+  margin: 0;
+}
+
+.preview-thumbnail.nav-tabs li:last-of-type {
+  margin-right: 0;
+}
+
+.tab-content {
+  overflow: hidden;
+}
+
+.card {
+  margin-top: 50px;
+  background: #eee;
+  padding: 20px;
+  line-height: 1.5em;
+}
+
+@media screen and (min-width: 997px) {
+  .wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+.details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.colors {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.product-title,
+.price,
+.sizes,
+.colors {
+  text-transform: UPPERCASE;
+  font-weight: bold;
+}
+
+.checked,
+.price span {
+  color: #ffcc01;
+}
+
+.product-title,
+.rating,
+.product-description,
+.price,
+.vote,
+.sizes {
+  margin-bottom: 15px;
+}
+
+.product-title {
+  margin-top: 0;
+}
+
+.size {
+  margin-right: 10px;
+}
+
+.size:first-of-type {
+  margin-left: 40px;
+}
+
+.color {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  height: 2em;
+  width: 2em;
+  border-radius: 2px;
+}
+
+.color:first-of-type {
+  margin-left: 20px;
+}
+
+.add-to-cart,
+.like {
+  background: #ffcc01;
+  padding: 1.2em 1.5em;
+  border: none;
+  text-transform: UPPERCASE;
+  font-weight: bold;
+  color: #fff;
+  -webkit-transition: background 0.3s ease;
+  transition: background 0.3s ease;
+}
+
+.add-to-cart:hover,
+.like:hover {
+  background: #b36800;
+  color: #fff;
+}
+
+.not-available {
+  text-align: center;
+  line-height: 2em;
+}
+
+.not-available:before {
+  font-family: fontawesome;
+  content: "\f00d";
+  color: #fff;
+}
+
+.orange {
+  background: #ffcc01;
+}
+
+.green {
+  background: #85ad00;
+}
+
+.blue {
+  background: #0076ad;
+}
+
+.tooltip-inner {
+  padding: 1.3em;
+}
+.nav.nav-tabs {
+  overflow-x: auto;
+  overflow-y: hidden;
+  flex-wrap: nowrap;
+}
+.tabitem{
+  white-space: nowrap;
+}
+.kundlireporttabs{
+  border-bottom: 0 !important;
+}
+.kundlireporttabs .tabitem{
+  border-bottom: 1px solid #fbb72c;
+}
+.kundlireporttabs .activetab{
+  border-bottom: 0 !important;
+}
+.kundlireporttabs .activetab a{
+  border-color: #fbb72c!important;
+}
+.kundlireporttabs a{
+  color: gray;
+}
+.panchang-chart div div,.panchang-chart div button{
+  display: none !important;
+}
+.panchang-chart svg{
+  width: 350px !important;
+    height: 350px !important;
+    margin: auto !important;
+    background: url('../../assets/img/astrologin-bg.jpg');
+   
+}
+.bg-yellow{
+  background-color: #ffeabf;
+}
+.text-dark{
+  color: #0c0b0b;
+}
+
+
+@-webkit-keyframes opacity {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(3);
+    transform: scale(3);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(3);
+    transform: scale(3);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+/*# sourceMappingURL=astropooja.css.map */
+.kundlitable .table-rounded {
+  border-collapse: separate;
+  border-spacing: 0;
+  /* border-radius: 15px 15px 0 0; */
+  overflow: hidden;
+}
+.kundlitable .table-rounded th,
+.kundlitable .table-rounded td {
+  border: 1px solid #fcc556;
+}
+.kundlitable .table-rounded thead th{
+  background-color: #ffeabf;
+}
+/* .kundlitable .table-rounded thead th:first-child { */
+  /* border-top-left-radius: 15px; */
+/* } */
+/* .kundlitable .table-rounded thead th:last-child { */
+  /* border-top-right-radius: 15px; */
+/* } */
+.kundlitable .tableheadcase{
+  text-transform: capitalize;
+}
+.mycard{
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  width: fit-content;
+}
+.shadows{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; 
+}
+
+.table-stright,
+.table-stright thead th:last-child,
+.table-stright thead th:first-child{
+  border-radius: 0 !important;
+}
+
+
+.tabs {
+	display: flex;
+	position: relative;
+	padding-top: 0.75rem;
+	padding-bottom: 0.75rem;
+  justify-content: center;
+	border-radius: 99px; 
+	* {
+		z-index: 2;
+	}
+}
+
+.tabs input[type="radio"] {
+	display: none;
+}
+
+.tab {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 40px;
+	width: 180px;
+	font-weight: 500;
+	border-radius: 99px; 
+	cursor: pointer;
+	transition: color 0.15s ease-in; 
+}
+
+.tabs input[type="radio"] {
+	&:checked {
+		& + label {
+			color: var(--primary-color);
+			& > .notification {
+				background-color: var(--primary-color);
+				color: #fff;
+			}
+		}
+	}
+  
+}
+.tabs input[id="radio-1"] {
+  &:checked {
+    & ~ .glider {
+      transform: translateX(-200%);
+    }
+  }
+}
+
+.tabs input[id="radio-2"] {
+  &:checked {
+    & ~ .glider {
+      transform: translateX(-100%);
+    }
+  }
+}
+
+.tabs input[id="radio-3"] {
+  &:checked {
+    & ~ .glider {
+      transform: translateX(0%);
+    }
+  }
+}
+
+.tabs input[id="radio-4"] {
+  &:checked {
+    & ~ .glider {
+      transform: translateX(100%);
+    }
+  }
+}
+
+.tabs input[id="radio-5"] {
+  &:checked {
+    & ~ .glider {
+      transform: translateX(200%);
+    }
+  }
+}
+.tabs .glider {
+	position: absolute;
+	display: flex;
+	height: 40px;
+  justify-content: center;
+	width: 180px;
+	background-color: var(--secondary-color);
+	z-index: 1;
+	border-radius: 99px; 
+	transition: 0.25s ease-out;
+  transform: translateX(-200%);
+}
+.tab:hover {
+  color: #ffcc01;
+}
+.tab .glider:hover {
+  color: #0a0800 !important;
+}
+ 
+ .smooth-transition {
+  animation: fadeInAnimation ease-in 500ms;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+@keyframes fadeInAnimation {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
+.basic-detail th,.basic-detail td,
+.panchang-detail th,.panchang-detail th{
+  width: 50%;
+}
+.planet-position th,.planet-position td
+{
+  width: 20%;
+}
+.ashtavarga th,.ashtavarga td
+{
+  width: 20%;
+}
+
+.ashtavarga th,
+.ashtavarga td {
+    width: 1%;
+    /* white-space: nowrap; */
+}
+.ashtavarga {
+    table-layout: fixed;
+    width: 100%;
+}
+.table-rounded {
+  width: 100%;
+  height: 100%;
+}
+
+.table-rounded th, .table-rounded td {
+  width: 12.5%; /* 100% / 8 columns */
+  text-align: center;
+  vertical-align: middle;
+}

@@ -1,0 +1,74 @@
+/* button.active:active{
+    border-color: #51585e;
+}
+
+
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]:checked+label span {
+    -webkit-transform: scale(1.25);
+    transform: scale(1.25);
+}
+
+input[type="radio"]:checked+label span {
+    border: 3px solid #29292981;
+}
+
+label {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+label:hover span {
+    -webkit-transform: scale(1.25);
+    transform: scale(1.25);
+}
+
+label span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    -webkit-transition: -webkit-transform .2s ease-in-out;
+    transition: -webkit-transform .2s ease-in-out;
+    transition: transform .2s ease-in-out;
+    transition: transform .2s ease-in-out, -webkit-transform .2s ease-in-out;
+} */
+
+.colors ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.colors li {
+    margin: 5px;
+}
+
+.colors label {
+    cursor: pointer;
+}
+
+.colors input {
+    display: none;
+}
+
+.colors input[type="radio"]:checked+.swatch {
+    box-shadow: inset 0 0 0 2px white;
+}
+
+.swatch {
+    display: inline-block;
+    vertical-align: middle;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    margin: 5px;
+    border: 1px solid #d4d4d4;
+}

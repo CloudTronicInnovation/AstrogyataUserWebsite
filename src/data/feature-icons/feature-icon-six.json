@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "image": "/assets/img/icon-img/secure-3.png",
+    "title": "100% Data Security",
+    "subtitle": "In today's digital age, data security is of utmost importance. To achieve 100% data security, it is essential to implement robust security measures that are constantly updated to keep up with evolving threats. We take all the essential steps to protect the data security and privacy by using of proper encryption, role based access, proper data backup at different locations, deployment of well qualified team for a robust incident response. "
+  },
+  {
+    "id": 2,
+    "image": "/assets/img/icon-img/secure-2.png",
+    "title": "100% Certified Astrologers ",
+    "subtitle": "We have a robust on boarding process for an astrologer by verifying their credentials and past experience, reputation to ensure that they are qualified to provide astrology services."
+  }
+]

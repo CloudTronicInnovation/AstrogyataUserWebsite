@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "title": "AstroGyata Your true Guide to world of Progress.",
+    "subtitle": "",
+    "image": "/assets/img/slider/slider-31.jpg",
+    "url": "/shop-grid-standard"
+  },
+  {
+    "id": 2,
+    "title": "AstroGyata Your true Guide to world of Progress.",
+    "subtitle": "",
+    "image": "/assets/img/slider/slider-32.jpg",
+    "url": "/shop-grid-standard"
+  },
+  {
+    "id": 3,
+    "title": "AstroGyata Your true Guide to world of Progress.",
+    "subtitle": "",
+    "image": "/assets/img/slider/slider-33.jpg",
+    "url": "/shop-grid-standard"
+  }
+]

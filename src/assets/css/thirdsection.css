@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display");
+
+.third {
+  padding-top: 8rem;
+}
+
+.third-hero-image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: no-repeat;
+  background-size: cover;
+  position: relative;
+  background-color: transparent;
+  opacity: 1;
+
+  overflow: hidden;
+}
+
+.third-hero-text {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-family: "Playfair display", sans-serif;
+  z-index: 3;
+}
+
+.third-hero-text h3 {
+  color: black;
+  letter-spacing: 0.6px;
+  font-family: "Playfair display", sans-serif;
+  padding-top: 1rem;
+}
+
+.third-hero-text h1 {
+  font-size: 3rem;
+  color: black;
+  letter-spacing: 0.6px;
+  font-family: "Playfair display", sans-serif;
+  padding-top: 1rem;
+}
+
+.third-hero-text h4 {
+  color: black;
+  letter-spacing: 0.6px;
+  font-family: "Playfair display", sans-serif;
+  padding-top: 1rem;
+}
+
+.third-hero-text button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 10px 25px;
+  color: black;
+  background-color: black;
+  text-align: center;
+  cursor: pointer;
+}
+
+.third-hero-text button:hover {
+  background-color: #555;
+  color: white;
+}
+
+/* linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), */

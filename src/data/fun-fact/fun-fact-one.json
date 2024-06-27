@@ -1,0 +1,21 @@
+[
+  {
+    "id": "1",
+    "image": "/assets/img/icon-img/stclient.png",
+    "countNum": 1300,
+    "title": "Satisfied Clients"
+  },
+  {
+    "id": "2",
+    "image": "/assets/img/icon-img/stastro.png",
+    "countNum": 20,
+    "title": "Astrologers"
+  },
+  {
+    "id": "3",
+    "image": "/assets/img/icon-img/stusers.png",
+    "countNum": 4000,
+    "title": "Registered Users"
+  }
+  
+]
