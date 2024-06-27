@@ -82,24 +82,17 @@ class ChatApp extends React.Component {
       type: "chat",
     };
     axiosConfig
-      .post(`/user/deductChatBalance`, payload)
+      .post("/user/timer", payload)
       .then((res) => {
-        console.log("callduration", res.data);
-        // console.log(res);
-        //  Fetchuserdetail();
+        const value = res.data;
+        console.log("/user/timer", value);
+        this.setState({ setTimer: value.timer.currentValue });
+        clearInterval(this.countRef.current);
+        this.countRef.current = setInterval(() => {
+          this.setState({ setTimer: this.state.setTimer + 1 });
+        }, 1000);
       })
-      .catch((err) => {
-        console.log(err.response.data.message);
-        if (err.response.data.message === "Insufficient balance for the call") {
-          this.handlestop();
-          //  this.props.history.push("/allastrologerlist");
-          swal("You have Low Balance");
-        }
-      });
-    this.setState({ counterState: false });
-    this.countRef.current = setInterval(() => {
-      this.setState({ setTimer: this.state.setTimer + 1 });
-    }, 1000);
+      .catch((err) => {});
   };
 
   handlePause = () => {
@@ -441,7 +434,38 @@ class ChatApp extends React.Component {
                 .then((respons) => {
                   // console.log(respons.data);
                   if (this.state.counterState) {
+                    let userId = JSON.parse(localStorage.getItem("user_id"));
+                    let astroId = localStorage.getItem("astroId");
+                    //  sessionStorage.setItem("typeofcall", "Video");
+
+                    let payload = {
+                      userId: userId,
+                      astroId: astroId,
+                      type: "chat",
+                    };
+                    axiosConfig
+                      .post(`/user/deductChatBalance`, payload)
+                      .then((res) => {
+                        console.log("callduration", res.data);
+                        // console.log(res);
+                        //  Fetchuserdetail();
+                      })
+                      .catch((err) => {
+                        console.log(err.response.data.message);
+                        if (
+                          err.response.data.message ===
+                          "Insufficient balance for the call"
+                        ) {
+                          this.handlestop();
+                          //  this.props.history.push("/allastrologerlist");
+                          swal("You have Low Balance");
+                        }
+                      });
                     this.handleStart();
+                    setInterval(() => {
+                      this.handleStart();
+                    }, 10000);
+                    this.setState({ counterState: false });
                   }
                   this.handlestartinterval();
 
@@ -482,9 +506,9 @@ class ChatApp extends React.Component {
           .catch((error) => {
             console.log(error);
             swal("Smthing went wrong", "Smthing went wrong");
-              setTimeout(() => {
-                window.location.href = "/";
-              }, 2000);
+            setTimeout(() => {
+              window.location.href = "/";
+            }, 2000);
             // console.log(error.response);
           });
       }, 3000);

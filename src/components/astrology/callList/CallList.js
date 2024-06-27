@@ -132,11 +132,11 @@ class CallList extends React.Component {
     let obj = {
       userid: userId,
       astroid: astroid,
-      // From: this.state.mobile, //astro no
-      // To: mobileNo, //user no
+      From: this.state.mobile, //astro no
+      To: mobileNo, //user no
 
-      From: '918830286557', //astro no
-      To: '919766951301', //user no
+      // From: '917264845624', //astro no
+      // To: '919766951301', //user no
     };
 
     axiosConfig
@@ -159,7 +159,7 @@ class CallList extends React.Component {
               setTimeout(() => {
                 this.setState({ callingDisabled: false });
                 swal("You can make a call now!", "", "success");
-              }, 2 * 60 * 1000); // 2 minutes
+              },1000); // 1 minutes
             })
             .catch((error) => {
               swal("Alert", "Call Failed");
