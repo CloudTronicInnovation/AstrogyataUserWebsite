@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Button } from "reactstrap";
 import LayoutOne from "../../../layouts/LayoutOne";
@@ -7,7 +7,7 @@ import axiosConfig from "../../../axiosConfig";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import swal from "sweetalert";
 
-class CallList extends React.Component {
+class CallList extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -42,6 +42,7 @@ class CallList extends React.Component {
 
     this.state = {
       modal: false,
+      startCallFlag: true,
     };
 
     this.toggle = this.toggle.bind(this);
@@ -69,6 +70,7 @@ class CallList extends React.Component {
   };
 
   componentDidMount = () => {
+    sessionStorage.getItem("callwaitcountdown");
     this.getuserList();
     // let astroId = localStorage.getItem("videoCallAstro_id");
     let astroid = localStorage.getItem("astroId");
@@ -134,42 +136,42 @@ class CallList extends React.Component {
       astroid: astroid,
       From: this.state.mobile, //astro no
       To: mobileNo, //user no
-
-      // From: '917264845624', //astro no
-      // To: '919766951301', //user no
+      type: "Call",
     };
 
     axiosConfig
       .post(`/user/addCallWallet`, obj)
       .then((ress) => {
         if (ress.data.status === true) {
-          axiosConfig
-            .post(`/user/make_call`, obj, {
-              // params: {
-              //   From: this.state.mobile, //astro no
-              //   To: mobileNo, //user no
-              //   CallerId: callerId,
-              //   Record: true,
-              // },
-            })
-            .then((response) => {
-              this.setState({ callingId: callerId });
-              swal("Call Connecting", "SuccessFully");
-              // Enable the call button after 2 minutes
-              setTimeout(() => {
-                this.setState({ callingDisabled: false });
-                swal("You can make a call now!", "", "success");
-              },1000); // 1 minutes
-            })
-            .catch((error) => {
-              swal("Alert", "Call Failed");
-              // Enable the call button immediately if there's an error
-              this.setState({ callingDisabled: false });
-            });
-        } else {
-          swal("Alert", "Insufficient Balance");
+          swal("Please wait while the astrologer to accept your call request!");
+          // axiosConfig
+          //   .post(`/user/make_call`, obj, {
+          //     // params: {
+          //     //   From: this.state.mobile, //astro no
+          //     //   To: mobileNo, //user no
+          //     //   CallerId: callerId,
+          //     //   Record: true,
+          //     // },
+          //   })
+          //   .then((response) => {
+          //     this.setState({ callingId: callerId });
+          //     swal("Call Connecting", "SuccessFully");
+          //     // Enable the call button after 2 minutes
+          //     setTimeout(() => {
+          //       this.setState({ callingDisabled: false });
+          //       swal("You can make a call now!", "", "success");
+          //     },1000); // 1 minutes
+          //   })
+          //   .catch((error) => {
+          //     swal("Alert", "Call Failed");
+          //     // Enable the call button immediately if there's an error
+          //     this.setState({ callingDisabled: false });
+          //   });
+          this.setState({ startCallFlag: false });
           // Enable the call button immediately if there's insufficient balance
           this.setState({ callingDisabled: false });
+        } else {
+          swal("Alert", "Insufficient Balance");
         }
       })
       .catch((err) => {
@@ -207,10 +209,10 @@ class CallList extends React.Component {
       swal("Need to Login first");
     }
   };
-  getBirthPlace(data){
+  getBirthPlace(data) {
     // check if object
     const flag = data.includes("{");
-    if(flag){
+    if (flag) {
       const obj = JSON.parse(data);
       return `${obj?.name}, ${obj.stateCode}`;
     }
@@ -293,7 +295,9 @@ class CallList extends React.Component {
                                 </li>
                                 <li>
                                   BirthPlace:
-                                  <span>{this.getBirthPlace(list.birthPlace)}</span>
+                                  <span>
+                                    {this.getBirthPlace(list.birthPlace)}
+                                  </span>
                                 </li>
                                 <li>
                                   Date Of Time:
@@ -343,19 +347,36 @@ class CallList extends React.Component {
                                     <span>{list.p_lastname}</span>
                                   </li>
                                 ) : null}
-
-                                <div
-                                  style={{ float: "right", cursor: "pointer" }}
-                                >
-                                  <button
-                                    className="btn btn-denger wr"
-                                    onClick={() => this.handleCalling(list._id)}
+                                {this.state.startCallFlag ? (
+                                  <div
+                                    style={{
+                                      float: "right",
+                                      cursor: "pointer",
+                                    }}
                                   >
-                                    {this.state.callingId === list._id
-                                      ? "Calling Now"
-                                      : "Start Call"}
-                                  </button>
-                                </div>
+                                    <button
+                                      className="btn btn-denger wr"
+                                      onClick={() =>
+                                        this.handleCalling(list._id)
+                                      }
+                                    >
+                                      {this.state.callingId === list._id
+                                        ? "Calling Now"
+                                        : "Start Call"}
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <div
+                                    style={{
+                                      float: "right",
+                                      cursor: "not-allowed",
+                                    }}
+                                  >
+                                    <button className="btn disabled">
+                                      Please Wait
+                                    </button>
+                                  </div>
+                                )}
                               </ul>
                             </div>
                           </div>
