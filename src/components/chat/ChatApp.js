@@ -90,7 +90,7 @@ class ChatApp extends React.Component {
         clearInterval(this.countRef.current);
         this.countRef.current = setInterval(() => {
           this.setState({ setTimer: this.state.setTimer + 1 });
-        }, 60000);
+        }, 1000);
       })
       .catch((err) => {});
   };
@@ -464,7 +464,7 @@ class ChatApp extends React.Component {
                     this.handleStart();
                     setInterval(() => {
                       this.handleStart();
-                    }, 10000);
+                    }, 60000);
                     this.setState({ counterState: false });
                   }
                   this.handlestartinterval();

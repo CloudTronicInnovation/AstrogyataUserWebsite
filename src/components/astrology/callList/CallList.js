@@ -207,8 +207,18 @@ class CallList extends React.Component {
       swal("Need to Login first");
     }
   };
+  getBirthPlace(data){
+    // check if object
+    const flag = data.includes("{");
+    if(flag){
+      const obj = JSON.parse(data);
+      return `${obj?.name}, ${obj.stateCode}`;
+    }
+    return data;
+  }
   render() {
     const { allUserList } = this.state;
+    console.log(allUserList);
     return (
       <LayoutOne headerTop="visible">
         <section className="pt-0 pb-0">
@@ -283,7 +293,7 @@ class CallList extends React.Component {
                                 </li>
                                 <li>
                                   BirthPlace:
-                                  <span>{list.birthPlace}</span>
+                                  <span>{this.getBirthPlace(list.birthPlace)}</span>
                                 </li>
                                 <li>
                                   Date Of Time:
