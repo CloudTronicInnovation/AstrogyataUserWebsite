@@ -140,10 +140,10 @@ class ChatList extends React.Component {
         console.log(error);
       });
   };
-  getBirthPlace(data){
+  getBirthPlace(data) {
     // check if object
     const flag = data.includes("{");
-    if(flag){
+    if (flag) {
       const obj = JSON.parse(data);
       return `${obj?.name}, ${obj.stateCode}`;
     }
@@ -193,7 +193,8 @@ class ChatList extends React.Component {
                         Add New Intake Form
                       </button>
                     </Link>
-                  </div>{console.log(allUserList)}
+                  </div>
+                  {console.log(allUserList)}
                   {allUserList?.length ? (
                     allUserList?.map((list) => {
                       console.log(list);
@@ -203,10 +204,9 @@ class ChatList extends React.Component {
                             <div className="card-body ">
                               <ul>
                                 <li className="">
-FirstName:
+                                  FirstName:
                                   <span> {list.firstname.toUpperCase()}</span>
-                                  
-                                  {/* <li>
+                                   <li>
                                     <img
                                       src={list.file}
                                       alt=""
@@ -223,12 +223,15 @@ FirstName:
                                         
                                       }}
                                     />
-                                  </li> */}
+                                  </li> 
                                 </li>
-                             
+
                                 <li>
                                   BirthPlace:
-                                  <span> {this.getBirthPlace(list.birthPlace)}</span>
+                                  <span>
+                                    {" "}
+                                    {this.getBirthPlace(list.birthPlace)}
+                                  </span>
                                 </li>
                                 <li>
                                   Date Of Time:

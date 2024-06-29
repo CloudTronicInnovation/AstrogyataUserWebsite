@@ -196,6 +196,7 @@ class UserRequestForm extends React.Component {
         });
     } else {
       swal("Need to Login first");
+      // window.location.href = "/";
     }
   };
   getTodayDate() {

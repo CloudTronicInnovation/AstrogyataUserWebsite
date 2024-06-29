@@ -227,6 +227,7 @@ class AstrologerDetail extends React.Component {
       }
     } else {
       swal("Need to Login first");
+      window.location.href = "/";
       // this.setState({ modal: true });
     }
   };
