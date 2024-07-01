@@ -61,6 +61,7 @@ const Waitingpage = ({ location, args }) => {
         .then(res => {
           if (
             res?.data?.data?.status === "Accept" &&
+
             res?.data?.data?.type === "Chat"
           ) {
             swal("Astro is now Accepted Your Request");
@@ -79,10 +80,10 @@ const Waitingpage = ({ location, args }) => {
             axiosConfig
               .get(`/admin/dltNotificattion/${res.data.data?._id}`)
               .then(res => {
-                // clearInterval(intervalRef.current);
               })
               .catch(err => {
                 console.log(err);
+                
               });
           }
         })
@@ -91,6 +92,8 @@ const Waitingpage = ({ location, args }) => {
         });
     }, 5000);
   };
+
+  
 
   useEffect(() => {
     // console.log("myLocation", mylocation);

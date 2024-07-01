@@ -206,7 +206,7 @@ class ChatList extends React.Component {
                                 <li className="">
                                   FirstName:
                                   <span> {list.firstname.toUpperCase()}</span>
-                                   <li>
+                                   {/* <li>
                                     <img
                                       src={list.file}
                                       alt=""
@@ -222,8 +222,9 @@ class ChatList extends React.Component {
                                         right: "9%",
                                         
                                       }}
+                                     
                                     />
-                                  </li> 
+                                  </li>  */}
                                 </li>
 
                                 <li>
