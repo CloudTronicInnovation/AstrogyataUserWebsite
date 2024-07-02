@@ -113,7 +113,6 @@ class ChatList extends React.Component {
   };
 
   handleBalacecheck = (id, list) => {
-    console.log(list);
     let userId = JSON.parse(localStorage.getItem("user_id"));
     localStorage.setItem("UserChatData", JSON.stringify(list));
     let astroId = localStorage.getItem("astroId");
@@ -122,6 +121,7 @@ class ChatList extends React.Component {
     const data = {
       userid: userId,
       astroid: astroId,
+      userintakeid:list._id,
       type: "Chat",
     };
 
