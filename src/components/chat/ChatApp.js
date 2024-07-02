@@ -478,7 +478,7 @@ class ChatApp extends React.Component {
                     this.handleStart();
                     setInterval(() => {
                       this.handleStart();
-                    }, 60000);
+                    }, 20000);
                     this.setState({ counterState: false });
                   }
                   this.handlestartinterval();

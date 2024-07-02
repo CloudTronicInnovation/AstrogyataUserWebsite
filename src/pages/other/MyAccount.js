@@ -97,6 +97,9 @@ export default class MyAccount extends Component {
       .then(response => {
         console.log(response.data);
         swal("Success!", "Submitted SuccessFull!", "success");
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 2000);
       })
       .catch(error => {
         console.log(error);
