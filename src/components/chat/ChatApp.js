@@ -247,11 +247,10 @@ class ChatApp extends React.Component {
     const astroId = localStorage.getItem("astroId");
     const UserChatData = JSON.parse(localStorage.getItem("UserChatData"));
     let userid = JSON.parse(localStorage.getItem("user_id"));
-    const placeplace = JSON.parse(UserChatData?.birthPlace);
-    console.log(placeplace.name);
+  
     if (userid !== "" && userid !== null) {
       if (this.state.msg !== "") {
-        let value = `First Name: ${UserChatData?.firstname}, Birth Place: ${placeplace.name}, Date Of Time: ${UserChatData?.date_of_time}, Date Of Birth: ${UserChatData?.dob}, Gender: ${UserChatData?.gender}`;
+        let value = `First Name: ${UserChatData?.firstname}, Birth Place: ${UserChatData?.birthPlace}, Date Of Time: ${UserChatData?.date_of_time}, Date Of Birth: ${UserChatData?.dob}, Gender: ${UserChatData?.gender}`;
 
         let obj = {
           astroid: astroId,

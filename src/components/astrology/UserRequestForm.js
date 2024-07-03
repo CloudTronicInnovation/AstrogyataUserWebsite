@@ -61,7 +61,6 @@ class UserRequestForm extends React.Component {
     this.setState({
       selectedCity: item,
     });
-    console.log(this.state.selectedCity);
     // axiosConfig
     //   .post(`/user/geo_detail`, {
     //     place: item?.name,
@@ -454,9 +453,8 @@ class UserRequestForm extends React.Component {
                           onChange={(item) => {
                             this.changeCity(item);
                             this.setState({
-                              birthPlace: JSON.stringify(item),
+                              birthPlace: item.name,
                             });
-                           
                           }}
                         />
                       </Col>
