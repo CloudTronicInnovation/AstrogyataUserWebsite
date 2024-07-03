@@ -250,7 +250,7 @@ class ChatApp extends React.Component {
   
     if (userid !== "" && userid !== null) {
       if (this.state.msg !== "") {
-        let value = `First Name: ${UserChatData?.firstname}, Birth Place: ${UserChatData?.birthPlace}, Date Of Time: ${UserChatData?.date_of_time}, Date Of Birth: ${UserChatData?.dob}, Gender: ${UserChatData?.gender}`;
+        let value = `First Name: ${UserChatData?.firstname}, Birth Place: ${UserChatData?.birthPlace}, Birth Time: ${UserChatData?.date_of_time}, Date Birth: ${UserChatData?.dob}, Gender: ${UserChatData?.gender}`;
 
         let obj = {
           astroid: astroId,
