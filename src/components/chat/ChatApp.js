@@ -9,6 +9,7 @@ import ChatAppMassage from "./ChatAppMassage";
 import axiosConfig from "../../axiosConfig";
 import { Fetchuserdetail } from "../header/IconGroup";
 import swal from "sweetalert";
+import Swal from "sweetalert2";
 import { useAuth } from "../../AuthContext";
 
 class ChatApp extends React.Component {
@@ -511,7 +512,11 @@ class ChatApp extends React.Component {
           .post(`/user/checkroom`, value)
           .then((response) => {
             if (response.data.roomstatus === 0) {
-              swal("Astrologer Left", "Astrologer Left");
+              Swal.fire({
+                title: "Astrologer Left",                  
+                width: "300px",
+                timer: 1500,
+              });
               setTimeout(() => {
                 window.location.href = "/";
               }, 2000);

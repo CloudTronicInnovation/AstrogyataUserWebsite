@@ -95,6 +95,7 @@
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.3",
     "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.12.1",
     "swiper": "^5.4.5",
     "uuid": "^3.3.3",
     "zego-zim-web": "^2.4.2"
