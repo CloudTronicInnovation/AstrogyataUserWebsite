@@ -62,7 +62,6 @@ class UserRequestForm extends React.Component {
     this.setState({
       selectedCity: item,
     });
-    console.log(this.state.selectedCity);
     // axiosConfig
     //   .post(`/user/geo_detail`, {
     //     place: item?.name,
@@ -112,13 +111,13 @@ class UserRequestForm extends React.Component {
     data.append("astroid", astroId);
     data.append("mobile", parseInt(this.state.mobile));
     data.append("firstname", this.state.firstname);
-    data.append("dob", this.state.dob);
+    data.append("dob", formattedDate);
     data.append("p_firstname", this.state.p_firstname);
     data.append("p_lastname", this.state.p_lastname);
     data.append("p_birthPlace", this.state.p_birthPlace);
     data.append("birthPlace", this.state.birthPlace);
     data.append("date_of_time", this.state.date_of_time);
-    data.append("p_dob", formattedDate);
+    data.append("p_dob", this.state.p_dob);
     data.append("p_date_of_time", this.state.p_date_of_time);
     data.append("gender", this.state.gender);
     data.append("marital_status", this.state.marital_status);
@@ -456,9 +455,8 @@ class UserRequestForm extends React.Component {
                           onChange={(item) => {
                             this.changeCity(item);
                             this.setState({
-                              birthPlace: JSON.stringify(item),
+                              birthPlace: item.name,
                             });
-                           
                           }}
                         />
                       </Col>
@@ -630,4 +628,4 @@ class UserRequestForm extends React.Component {
     );
   }
 }
-export default UserRequestForm;/*  */
+export default UserRequestForm;
