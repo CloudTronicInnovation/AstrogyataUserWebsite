@@ -1,4 +1,4 @@
-import React,{ Component } from "react";
+import React, { Component } from "react";
 import { Button, Container } from "reactstrap";
 import "../../assets/scss/chat.scss";
 import LayoutOne from "../../layouts/LayoutOne";
@@ -9,7 +9,7 @@ import ChatAppMassage from "./ChatAppMassage";
 import axiosConfig from "../../axiosConfig";
 import { Fetchuserdetail } from "../header/IconGroup";
 import swal from "sweetalert";
-import {useAuth} from "../../AuthContext"
+import { useAuth } from "../../AuthContext";
 
 class ChatApp extends React.Component {
   constructor(props) {
@@ -160,7 +160,6 @@ class ChatApp extends React.Component {
   // }
   // };
   componentDidMount = async () => {
-
     let userid = JSON.parse(localStorage.getItem("user_id"));
     const astroId = localStorage.getItem("astroId");
     const UserChatData = JSON.parse(localStorage.getItem("UserChatData"));
@@ -225,14 +224,14 @@ class ChatApp extends React.Component {
         console.log(error);
         // console.log(error.response);
       });
-      this.preventBackNavigation();
-    window.addEventListener('popstate', this.handlePopState);
+    this.preventBackNavigation();
+    window.addEventListener("popstate", this.handlePopState);
   };
   componentWillUnmount() {
     clearInterval(this.countRef.current);
     clearInterval(this.apicall.current);
     clearInterval(sessionStorage.getItem("intervalforroom"));
-    window.removeEventListener('popstate', this.handlePopState);
+    window.removeEventListener("popstate", this.handlePopState);
   }
   preventBackNavigation = () => {
     // Push a new state to prevent going back
@@ -242,7 +241,6 @@ class ChatApp extends React.Component {
     // Prevent going back
     this.preventBackNavigation();
   };
-
 
   sendChatDetails = () => {
     const astroId = localStorage.getItem("astroId");
@@ -475,7 +473,9 @@ class ChatApp extends React.Component {
                           swal("You have Low Balance");
                         }
                       });
-                    this.handleStart();
+                    setTimeout(() => {
+                      this.handleStart();
+                    }, 1000);
                     setInterval(() => {
                       this.handleStart();
                     }, 20000);
