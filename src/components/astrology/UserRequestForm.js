@@ -6,6 +6,7 @@ import swal from "sweetalert";
 import Select from "react-select";
 import { Country, State, City } from "country-state-city";
 import astrologinbg from "../../assets/img/astrologin-bg.jpg";
+import moment from "moment";
 
 class UserRequestForm extends React.Component {
   constructor(props) {
@@ -61,6 +62,7 @@ class UserRequestForm extends React.Component {
     this.setState({
       selectedCity: item,
     });
+    console.log(this.state.selectedCity);
     // axiosConfig
     //   .post(`/user/geo_detail`, {
     //     place: item?.name,
@@ -103,6 +105,7 @@ class UserRequestForm extends React.Component {
     e.preventDefault();
     let userId = JSON.parse(localStorage.getItem("user_id"));
     let astroId = localStorage.getItem("astroId");
+    const formattedDate = moment(this.state.dob, 'YYYY-MM-DD').format('DD/MM/YYYY');
     // debugger;
     const data = new FormData();
     data.append("userid", userId);
@@ -115,7 +118,7 @@ class UserRequestForm extends React.Component {
     data.append("p_birthPlace", this.state.p_birthPlace);
     data.append("birthPlace", this.state.birthPlace);
     data.append("date_of_time", this.state.date_of_time);
-    data.append("p_dob", this.state.p_dob);
+    data.append("p_dob", formattedDate);
     data.append("p_date_of_time", this.state.p_date_of_time);
     data.append("gender", this.state.gender);
     data.append("marital_status", this.state.marital_status);
@@ -453,8 +456,9 @@ class UserRequestForm extends React.Component {
                           onChange={(item) => {
                             this.changeCity(item);
                             this.setState({
-                              birthPlace: item.name,
+                              birthPlace: JSON.stringify(item),
                             });
+                           
                           }}
                         />
                       </Col>
