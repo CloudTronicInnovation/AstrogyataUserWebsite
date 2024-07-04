@@ -87,7 +87,6 @@ class ChatApp extends React.Component {
       .post("/user/timer", payload)
       .then((res) => {
         const value = res.data;
-        console.log("/user/timer", value);
         this.setState({ setTimer: value.timer.currentValue });
         clearInterval(this.countRef.current);
         this.countRef.current = setInterval(() => {
@@ -114,7 +113,6 @@ class ChatApp extends React.Component {
     axiosConfig
       .post(`/user/changeStatus`, value)
       .then((res) => {
-        console.log(res.data);
         sessionStorage.setItem("typeofcall", "Chat");
         this.props.history.push("/astrorating");
       })
@@ -165,15 +163,14 @@ class ChatApp extends React.Component {
     const astroId = localStorage.getItem("astroId");
     const UserChatData = JSON.parse(localStorage.getItem("UserChatData"));
     if (UserChatData?.userid?.fullname) {
-      await this.sendChatDetails();
       // localStorage.removeItem("UserChatData");
     }
     // await this.getChatonedata();
+    this.sendChatDetails();
 
     axiosConfig
       .get(`/user/getone_chat/${userid}/${astroId}`)
       .then((res) => {
-        console.log(res.data);
         if (res.data.data?.roomid) {
           this.setState({ CurrentRoomid: res.data.data?.roomid });
           axiosConfig
@@ -231,6 +228,7 @@ class ChatApp extends React.Component {
   componentWillUnmount() {
     clearInterval(this.countRef.current);
     clearInterval(this.apicall.current);
+    clearInterval(sessionStorage.getItem("chatstarttimerid"));
     clearInterval(sessionStorage.getItem("intervalforroom"));
     window.removeEventListener("popstate", this.handlePopState);
   }
@@ -247,7 +245,7 @@ class ChatApp extends React.Component {
     const astroId = localStorage.getItem("astroId");
     const UserChatData = JSON.parse(localStorage.getItem("UserChatData"));
     let userid = JSON.parse(localStorage.getItem("user_id"));
-  
+
     if (userid !== "" && userid !== null) {
       if (this.state.msg !== "") {
         let value = `First Name: ${UserChatData?.firstname}, Birth Place: ${UserChatData?.birthPlace}, Birth Time: ${UserChatData?.date_of_time}, Date Birth: ${UserChatData?.dob}, Gender: ${UserChatData?.gender}`;
@@ -260,12 +258,28 @@ class ChatApp extends React.Component {
         axiosConfig
           .post(`/user/addchat/${userid}`, obj)
           .then((response) => {
-            this.setState({ chatRoomdata: response.data.data });
+            // this.setState({ chatRoomdata: response.data.data });
             if (response.data.status === true) {
               this.setState({ msg: "" });
               axiosConfig
                 .get(`/user/allchatwithuser/${response.data?.data?.roomid}`)
-                .then((respons) => {
+                .then((respons) => {         
+                  //check if user msg
+                  let count = 0;
+                  for (let obj of respons.data?.data) {
+                    if (obj.hasOwnProperty("userid")) {
+                      count++;
+                      if (count >= 2)
+                        break;
+                    }
+                  }
+                  
+                  if(count===1){
+                    this.setState({ CurrentRoomid: response.data.data?.roomid });
+                    this.setState({ roomChatData: respons.data.data });
+                  }
+                  // const isKeyPresent = arrayOfObjects.some(obj => obj.hasOwnProperty(keyToCheck));
+                  // this.setState({ chatRoomdata: response.data.data });
                   // console.log(respons.data);
                   // if (this.state.counterState) {
                   //   this.handleStart();
@@ -328,7 +342,6 @@ class ChatApp extends React.Component {
       axiosConfig
         .get(`/user/allchatwithuser/${this.state.CurrentRoomid}`)
         .then((respons) => {
-          console.log(respons?.data?.data);
           this.handlelivechat();
           if (respons.data.status === true) {
             this.setState({ roomChatData: respons?.data.data });
@@ -348,7 +361,6 @@ class ChatApp extends React.Component {
               .get(`/user/allchatwithuser/${response?.data?.data?.roomid}`)
               .then((respons) => {
                 this.handlelivechat();
-                console.log(respons?.data?.data);
                 if (respons.data.status === true) {
                   this.setState({ roomChatData: respons?.data.data });
                 }
@@ -414,7 +426,6 @@ class ChatApp extends React.Component {
   };
 
   getChatRoomId = async (user, index) => {
-    console.log(user);
     this.setState({ Historydata: true });
     this.setState({ sendbutton: user.astroid?._id });
     this.setState({ Index: index });
@@ -476,9 +487,14 @@ class ChatApp extends React.Component {
                     setTimeout(() => {
                       this.handleStart();
                     }, 1000);
-                    setInterval(() => {
+                    clearInterval(sessionStorage.getItem("chatstarttimerid"));
+                    const chatstarttimerid = setInterval(() => {
                       this.handleStart();
                     }, 20000);
+                    sessionStorage.setItem(
+                      "chatstarttimerid",
+                      chatstarttimerid
+                    );
                     this.setState({ counterState: false });
                   }
                   this.handlestartinterval();
@@ -506,13 +522,12 @@ class ChatApp extends React.Component {
         astroId: astroId,
       };
       const id = setInterval(() => {
-        console.log("interval");
         axiosConfig
           .post(`/user/checkroom`, value)
           .then((response) => {
             if (response.data.roomstatus === 0) {
               Swal.fire({
-                title: "Astrologer Left",                  
+                title: "Astrologer Left",
                 width: "300px",
                 timer: 1500,
               });
