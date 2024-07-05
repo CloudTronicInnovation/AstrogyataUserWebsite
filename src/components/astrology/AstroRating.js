@@ -18,8 +18,33 @@ class AstroRating extends React.Component {
       astroid: "",
       userid: "",
       comment: "",
+      showAlertOnBack: false, 
     };
   }
+
+  // For not go back on chatapp after exit 
+  componentDidMount() {
+    window.history.pushState(null, null, window.location.href); // Manipulate history state to prevent back navigation
+    window.addEventListener("popstate", this.handlePopState); // Add listener for back button
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("popstate", this.handlePopState); // Clean up back button listener
+  }
+
+  handlePopState = (e) => {
+    if (this.state.showAlertOnBack) {
+      // alert("You cannot navigate back from this page.");
+      Swal.fire({
+        icon: "warning",
+        title: "You cannot navigate back from this page",
+        width: "500px",
+        timer: 1000,
+      });
+      this.setState({ showAlertOnBack: false });
+    }
+    window.history.pushState(null, null, window.location.href);
+  };
 
   onStarClick(nextValue, prevValue, name) {
     this.setState({ rating: nextValue });
@@ -70,6 +95,7 @@ class AstroRating extends React.Component {
         this.setState({
           comment: "",
           rating: "1",
+          
         });
 
         // swal("Success!", "Thank You For Your Valuable FeedBack", "success");

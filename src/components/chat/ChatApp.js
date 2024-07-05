@@ -300,7 +300,12 @@ class ChatApp extends React.Component {
             // swal("Error!", "You clicked the button!", "error");
             console.log(error);
           });
-      } else swal("Input filed is blank", "Fill it before send");
+      } else   
+      Swal.fire({
+        title: "Message cannot be send empty",
+        width: "300px",
+        timer: 1500,
+      });
     }
   };
   startTimer() {
