@@ -167,6 +167,7 @@ class ChatApp extends React.Component {
     }
     // await this.getChatonedata();
     this.sendChatDetails();
+    // this.handleAstroChat();
 
     axiosConfig
       .get(`/user/getone_chat/${userid}/${astroId}`)
@@ -440,6 +441,126 @@ class ChatApp extends React.Component {
     this.handlePreviouschat();
   };
 
+  // handleAstroChat = () => {
+  //   // Check if counterState is true
+  //   if (this.state.counterState) {
+  //     let userId = JSON.parse(localStorage.getItem("user_id"));
+  //     let astroId = localStorage.getItem("astroId");
+  //     // Prepare payload for the API call
+  //     let payload = {
+  //       userId: userId,
+  //       astroId: astroId,
+  //       type: "chat",
+  //     };
+  //     // Make the API call to deduct chat balance
+  //     axiosConfig.post(`/user/deductChatBalance`, payload)
+  //       .then((res) => {
+  //         console.log("callduration", res.data);
+  //         // Start chat session
+  //         this.handleStart();
+  //         // Set a timeout to call handleStart again after 1 second
+  //         setTimeout(() => {
+  //           this.handleStart();
+  //         }, 1000);
+  //         // Clear previous interval and set a new one
+  //         clearInterval(sessionStorage.getItem("chatstarttimerid"));
+  //         const chatstarttimerid = setInterval(() => {
+  //           this.handleStart();
+  //         }, 20000);
+  //         sessionStorage.setItem("chatstarttimerid", chatstarttimerid);
+  //         // Update state
+  //         this.setState({ counterState: false });
+  //       })
+  //       .catch((err) => {
+  //         console.log(err.response?.data?.message);
+  //         if (err.response?.data?.message === "Insufficient balance for the call") {
+  //           this.handlestop();
+  //           swal("You have Low Balance");
+  //         }
+  //       });
+  //     // Start interval for chat
+  //     this.handlestartinterval();
+  //   }
+  //   // Assuming `respons` is defined elsewhere and holds the API response
+  //   if (respons && respons.data && respons.data.status === true) {
+  //     this.setState({ roomChatData: respons.data.data });
+  //     this.handlelivechat();
+  //   }
+  //   // Check room status if flag is set
+  //   if (this.state.checkRoomStatusFlag) {
+  //     let value = {
+  //       userId: JSON.parse(localStorage.getItem("user_id")),
+  //       astroId: localStorage.getItem("astroId"),
+  //     };
+  //     // Set interval to check room status
+  //     const id = setInterval(() => {
+  //       axiosConfig.post(`/user/checkroom`, value)
+  //         .then((response) => {
+  //           if (response.data.roomstatus === 0) {
+  //             Swal.fire({
+  //               title: "Astrologer Left",
+  //               width: "300px",
+  //               timer: 1500,
+  //             });
+  //             setTimeout(() => {
+  //               this.props.history.push("/astrorating");
+  //             }, 2000);
+  //           }
+  //         })
+  //         .catch((error) => {
+  //           console.log(error);
+  //           swal("Something went wrong", "Something went wrong");
+  //           setTimeout(() => {
+  //             window.location.href = "/";
+  //           }, 2000);
+  //         });
+  //     }, 3000);
+  //     sessionStorage.setItem("intervalforroom", id);
+  //     this.setState({ checkRoomStatusFlag: false });
+  //   }
+  // };
+  
+  // submitHandler = async (e) => {
+  //   e.preventDefault();
+  //   console.log("submittttt");
+  //   const astroId = localStorage.getItem("astroId");
+  //   let userid = JSON.parse(localStorage.getItem("user_id"));
+  //   if (userid !== "" && userid !== null) {
+  //     if (this.state.msg !== "") {
+  //       let obj = {
+  //         astroid: astroId,
+  //         msg: this.state.msg,
+  //       };
+  //       // console.log("obj", obj);
+  //       axiosConfig
+  //         .post(`/user/addchat/${userid}`, obj)
+  //         .then((response) => {
+  //           this.setState({ chatRoomdata: response.data.data });
+  //           if (response.data.status === true) {
+  //             this.setState({ msg: "" });
+  //             axiosConfig
+  //               .get(`/user/allchatwithuser/${response.data?.data?.roomid}`)
+  //               .then((respons) => {
+  //                 // console.log(respons.data);              
+  //               })
+  //               .catch((error) => {
+  //                 console.log(error);
+  //               });
+  //           }
+  //         })
+  //         .catch((error) => {
+  //           // swal("Error!", "You clicked the button!", "error");
+  //           console.log(error);
+  //         });
+  //     } else 
+  //     Swal.fire({
+  //       title: "Message cannot be send empty",
+  //       width: "300px",
+  //       timer: 1500,
+  //     });
+  //   }
+  // };
+
   submitHandler = async (e) => {
     e.preventDefault();
     console.log("submittttt");
@@ -519,7 +640,12 @@ class ChatApp extends React.Component {
             // swal("Error!", "You clicked the button!", "error");
             console.log(error);
           });
-      } else swal("Input filed is blank", "Fill it before send");
+      } else 
+      Swal.fire({
+        title: "Message cannot be send empty",
+        width: "300px",
+        timer: 1500,
+      });
     }
 
     if (this.state.checkRoomStatusFlag) {
@@ -545,7 +671,7 @@ class ChatApp extends React.Component {
           })
           .catch((error) => {
             console.log(error);
-            swal("Smthing went wrong", "Smthing went wrong");
+            swal("Something went wrong", "Something went wrong");
             setTimeout(() => {
               window.location.href = "/";
             }, 2000);
