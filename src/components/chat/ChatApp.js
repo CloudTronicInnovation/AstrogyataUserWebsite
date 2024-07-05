@@ -176,6 +176,7 @@ class ChatApp extends React.Component {
           axiosConfig
             .get(`/user/allchatwithuser/${res.data?.data?.roomid}`)
             .then((res) => {
+              // console.log(res);
               this.setState({ roomChatData: res.data.data });
             })
             .catch((err) => {
