@@ -4,6 +4,7 @@ import StarRatingComponent from "react-star-rating-component";
 import { Col, Container, Row } from "reactstrap";
 import LayoutOne from "../../layouts/LayoutOne";
 import swal from "sweetalert";
+import Swal from "sweetalert2";
 import axiosConfig from "../../axiosConfig";
 class AstroRating extends React.Component {
   constructor() {
@@ -54,7 +55,7 @@ class AstroRating extends React.Component {
   submitHandler = e => {
     console.log("e, astroid,");
     e.preventDefault();
-    let user_id = JSON.parse(localStorage.getItem("user_id"));
+    let user_id = JSON.parse(localStorage.getItem("user_id"));  
     let astroId = localStorage.getItem("astroId");
     let obj = {
       userid: user_id,
@@ -71,7 +72,13 @@ class AstroRating extends React.Component {
           rating: "1",
         });
 
-        swal("Success!", "Thank You For Your Valuable FeedBack", "success");
+        // swal("Success!", "Thank You For Your Valuable FeedBack", "success");
+        Swal.fire({
+          icon: "success",
+          title: "Thank You For Your Valuable FeedBack",
+          width: "500px",
+          timer: 1500,
+        });
         this.props.history.push("/");
       })
 
@@ -88,6 +95,8 @@ class AstroRating extends React.Component {
   };
 
   render() {
+    let astroname = (localStorage.getItem("astroname"));  
+    // console.log(astroname);
     return (
       <LayoutOne headerTop="visible">
         <section className="pt-0 pb-0">
@@ -112,7 +121,7 @@ class AstroRating extends React.Component {
               <Row>
                 <Col md="12">
                   <div className="leftcont text-left">
-                    <h1>Your Review</h1>
+                    <h1>Your Review for<br/> {astroname.toUpperCase()}</h1>
                     <p></p>
                   </div>
                 </Col>

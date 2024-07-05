@@ -533,7 +533,8 @@ class ChatApp extends React.Component {
                 timer: 1500,
               });
               setTimeout(() => {
-                window.location.href = "/";
+                // window.location.href = "/astrorating";
+                this.props.history.push("/astrorating")
               }, 2000);
             }
           })

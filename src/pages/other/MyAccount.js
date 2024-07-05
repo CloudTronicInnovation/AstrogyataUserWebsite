@@ -4,6 +4,7 @@ import LayoutOne from "../../layouts/LayoutOne";
 import { Container, Form, Row, Col } from "reactstrap";
 import axiosConfig from "../../axiosConfig";
 import swal from "sweetalert";
+import defaultProfileImage from "../../../src/assets/img/boy-img.png"
 export default class MyAccount extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +17,7 @@ export default class MyAccount extends Component {
       gender: "",
       bithplace: "",
       birth_tym: "",
-      userimg: "",
+      userimg: defaultProfileImage,
       address: "",
       // locality: "",
       pincode: "",
@@ -31,11 +32,22 @@ export default class MyAccount extends Component {
       data: {},
     };
   }
-  onChangeHandler = event => {
-    this.setState({ selectedFile: event.target.files[0] });
-    this.setState({ selectedName: event.target.files[0].name });
-    console.log(event.target.files[0]);
+  // onChangeHandler = event => {
+  //   this.setState({ selectedFile: event.target.files[0] });
+  //   this.setState({ selectedName: event.target.files[0].name });
+  //   console.log(event.target.files[0]);
+  // };
+  onChangeHandler = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      this.setState({
+        selectedFile: file,
+        selectedName: file.name,
+        userimg: URL.createObjectURL(file), // Update the userimg state to display a preview
+      });
+    }
   };
+
   componentDidMount() {
     // let { id } = this.props.match.params;
     let user_id = JSON.parse(localStorage.getItem("user_id"));
@@ -51,7 +63,7 @@ export default class MyAccount extends Component {
           dob: response.data.data.dob,
           bithplace: response.data.data.bithplace,
           birth_tym: response.data.data.birth_tym,
-          userimg: response.data.data.userimg,
+          userimg: response.data.data.userimg || defaultProfileImage,
           address: response.data.data.address,
           pincode: response.data.data.pincode,
           city: response.data.data.city,
@@ -89,6 +101,8 @@ export default class MyAccount extends Component {
     // data.append("locality", this.state.locality);
     if (this.state.selectedFile !== null) {
       data.append("userimg", this.state.selectedFile, this.state.selectedName);
+    } else {
+      data.append("userimg", defaultProfileImage); // Use default image if none selected
     }
 
     let user_id = JSON.parse(localStorage.getItem("user_id"));
@@ -238,8 +252,8 @@ export default class MyAccount extends Component {
                                   <input
                                     className="form-control"
                                     type="file"
-                                    name="userimg"
-                                    onChange={this.changeHandler}
+                                    // name="userimg"
+                                    onChange={this.onChangeHandler}
                                   />
                                 </div>
                               </div>
