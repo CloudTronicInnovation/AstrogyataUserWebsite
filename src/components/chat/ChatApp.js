@@ -230,6 +230,7 @@ class ChatApp extends React.Component {
   componentWillUnmount() {
     clearInterval(this.countRef.current);
     clearInterval(this.apicall.current);
+    clearInterval(sessionStorage.getItem("chatintervalid"));
     clearInterval(sessionStorage.getItem("chatstarttimerid"));
     clearInterval(sessionStorage.getItem("intervalforroom"));
     window.removeEventListener("popstate", this.handlePopState);
@@ -265,19 +266,20 @@ class ChatApp extends React.Component {
               this.setState({ msg: "" });
               axiosConfig
                 .get(`/user/allchatwithuser/${response.data?.data?.roomid}`)
-                .then((respons) => {         
+                .then((respons) => {
                   //check if user msg
                   let count = 0;
                   for (let obj of respons.data?.data) {
                     if (obj.hasOwnProperty("userid")) {
                       count++;
-                      if (count >= 2)
-                        break;
+                      if (count >= 2) break;
                     }
                   }
-                  
-                  if(count===1){
-                    this.setState({ CurrentRoomid: response.data.data?.roomid });
+
+                  if (count === 1) {
+                    this.setState({
+                      CurrentRoomid: response.data.data?.roomid,
+                    });
                     this.setState({ roomChatData: respons.data.data });
                   }
                   // const isKeyPresent = arrayOfObjects.some(obj => obj.hasOwnProperty(keyToCheck));
@@ -427,9 +429,11 @@ class ChatApp extends React.Component {
     }
   };
   handlelivechat = () => {
-    setInterval(() => {
+    clearInterval(sessionStorage.getItem("chatintervalid"));
+    const chatintervalid = setInterval(() => {
       this.handlechat();
     }, 2000);
+    sessionStorage.setItem("chatintervalid", chatintervalid);
   };
 
   getChatRoomId = async (user, index) => {
@@ -665,7 +669,7 @@ class ChatApp extends React.Component {
               });
               setTimeout(() => {
                 // window.location.href = "/astrorating";
-                this.props.history.push("/astrorating")
+                this.props.history.push("/astrorating");
               }, 2000);
             }
           })
