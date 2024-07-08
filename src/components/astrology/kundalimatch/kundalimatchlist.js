@@ -190,7 +190,9 @@ class KundaliMatchList extends React.Component {
                     <h1 
                     // className="animate__animated animate__zoomIn" 
                     style={{
-                      fontFamily:"cursive"
+                      fontFamily:"cursive",
+                      display: "flex",
+                      justifyContent: "center",
                     }}
                     >
                       Kundli Matching Details

@@ -23,9 +23,19 @@ const KundliReport = () => {
 
   const [lagnaSvg, setlagnaSvg] = useState("");
   const [moonSvg, setmoonSvg] = useState("");
+  const [sunSvg, setsunSvg] = useState("");
+  const [chalitSvg, setchalitSvg] = useState("");
+  const [horaSvg, sethoraSvg] = useState("");
+  const [dreshkanSvg, setdreshkanSvg] = useState("");
+  const [shashtymshaSvg, setshashtymshasvg] = useState("");
   const [svgVishible, setSvgVisible] = useState({
     langnaSvg: false,
     moonSvg: false,
+    sunSvg: false,
+    chalitSvg: false,
+    horaSvg: false,
+    dreshkanSvg: false,
+    shashtymshaSvg: false,
   });
 
   const [reqData, setReqData] = useState();
@@ -71,28 +81,66 @@ const KundliReport = () => {
 
     const requests = [
       postRequest(`/v1/basic_panchang`),
-      // postRequest(`/v1/horo_chart_image/D1`),
-      // postRequest(`/v1/horo_chart_image/MOON`),
+      postRequest(`/v1/horo_chart_image/D1`),
+      postRequest(`/v1/horo_chart_image/MOON`),
+      postRequest(`/v1/horo_chart_image/SUN`),
+      postRequest(`/v1/horo_chart_image/chalit`),
+      postRequest(`/v1/horo_chart_image/D2`),
+      postRequest(`/v1/horo_chart_image/D3`),
+      postRequest(`/v1/horo_chart_image/D60`),
     ];
 
-    Promise.all(requests)
-      .then(([panchangRes, lagnaRes, moonRes]) => {
+    Promise.all(requests).then(
+      ([panchangRes, lagnaRes, moonRes, sunRes, chalitRes, D2Res, D3Res, D60Res]) => {
         setBasicPanchang(panchangRes.data);
-        // if (Object.keys(lagnaRes?.data) > 0) {
-        //   setSvgVisible({ ...svgVishible, lagnaSvg: true });
-        //   setlagnaSvg(lagnaRes.data.svg);
-        // }
 
-        // if (Object.keys(moonSvg?.data) > 0) {
-        //   setSvgVisible({ ...svgVishible, moonSvg: true });
-        //   setmoonSvg(moonRes.data.svg);
-        // }
+        const responseMap = [
+          { key: "lagnaSvg", res: lagnaRes },
+          { key: "moonSvg", res: moonRes },
+          { key: "sunSvg", res: sunRes },
+          { key: "chalitSvg", res: chalitRes },
+          { key: "horaSvg", res: D2Res },
+          { key: "dreshkanSvg", res: D3Res },
+          { key: "shashtymshaSvg", res: D60Res },
+        ];
+
+        let newSvgVisible = { ...svgVishible };
+
+        responseMap.forEach(({ key, res }) => {
+          if (res?.data && Object.keys(res.data).length > 0) {
+            newSvgVisible[key] = true;
+
+            switch (key) {
+              case "lagnaSvg":
+                setlagnaSvg(res.data.svg);
+                break;
+              case "moonSvg":
+                setmoonSvg(res.data.svg);
+                break;
+              case "sunSvg":
+                setsunSvg(res.data.svg);
+                break;
+              case "chalitSvg":
+                setchalitSvg(res.data.svg);
+                break;
+              case "horaSvg":
+                sethoraSvg(res.data.svg);
+                break;
+              case "dreshkanSvg":
+                setdreshkanSvg(res.data.svg);
+                break;
+              case "shashtymshaSvg":
+                setshashtymshasvg(res.data.svg);
+                break;
+              default:
+                break;
+            }
+          }
+        });
+        setSvgVisible(newSvgVisible);
         setReqData(reqPanchangData);
-      })
-      .catch((err) => {
-        setBasicPanchang({});
-        // console.log(err);
-      });
+      }
+    );
   };
 
   const fetchPlanetaryPosition = () => {
@@ -231,8 +279,8 @@ const KundliReport = () => {
     // { label: "Shodashvarga" },
     // { label: "Fivefold Friendship" },
     { label: "Ashtakvarga", value: 3 },
-    { label: "Vimshottari Dasha",value: 4 },
-    { label: "Yogini Dasha",value: 5 },
+    { label: "Vimshottari Dasha", value: 4 },
+    { label: "Yogini Dasha", value: 5 },
   ];
 
   function getAMPM(hour, minute) {
@@ -332,7 +380,7 @@ const KundliReport = () => {
                 </Nav> */}
                   <div className="tabs">
                     {(kundli_report_menu || []).map((item, key) => (
-                      <> 
+                      <>
                         <input
                           type="radio"
                           id={`radio-${key + 1}`}
@@ -342,7 +390,7 @@ const KundliReport = () => {
                         <label className="tab" htmlFor={`radio-${key + 1}`}>
                           {item.label}
                         </label>
-                      </> 
+                      </>
                     ))}
                     <span className="glider"></span>
                   </div>
@@ -355,7 +403,7 @@ const KundliReport = () => {
                         </p> */}
                           <Table
                             bordered
-                            className= "animate__animated animate__zoomIn"
+                            className="animate__animated animate__zoomIn"
                           >
                             <tbody>
                               <tr>
@@ -389,10 +437,12 @@ const KundliReport = () => {
                                   {basicDetails.birthplace != null ? (
                                     <p>
                                       <span>
-                                        {basicDetails.birthplace.city.name},&nbsp;
+                                        {basicDetails.birthplace.city.name}
+                                        ,&nbsp;
                                       </span>
                                       <span>
-                                        {basicDetails.birthplace.state.name},&nbsp;
+                                        {basicDetails.birthplace.state.name}
+                                        ,&nbsp;
                                       </span>
                                       <span>
                                         {basicDetails.birthplace.country.name}
@@ -456,7 +506,7 @@ const KundliReport = () => {
                           ) : (
                             <Table
                               bordered
-                              className= "animate__animated animate__zoomIn"
+                              className="animate__animated animate__zoomIn"
                             >
                               <tbody>
                                 <tr>
@@ -545,38 +595,107 @@ const KundliReport = () => {
                         </Col>
                         <Col md="12" className="smooth-transition">
                           <Row>
-                            <p className="bg-warning text-center margin-auto fw-bold p-2 pb-0">
+                            <p className="bg-warning text-center margin-auto fw-bold p-2 pb-0 animate__animated animate__zoomIn">
                               Horoscope Chart
                             </p>
                           </Row>
-                          <Row className="border" style={{ margin: ".5px" }}>
-                            {svgVishible?.langnaSvg && (
-                              <Col md="6" className="panchang-chart mt-2">
+                          <Row
+                            className="border animate__animated animate__zoomIn"
+                            style={{ margin: ".5px" }}
+                          >
+                            {/* Lagna CHART  */}
+                            {svgVishible?.lagnaSvg && (
+                              <Col
+                                md="6"
+                                className="panchang-chart mt-2 text-center"
+                              >
                                 <h6 className="fw-semibold text-center">
-                                  Lagna Chart
+                                Lagna/ Ascendant/ Basic Birth Chart
                                 </h6>
-                             { /*  <Convert string={lagnaSvg} />*/}
-                             ReactHtmlParser(lagnaSvg)
+                                {ReactHtmlParser(lagnaSvg)}
                               </Col>
                             )}
+                            {/* Moon Chart  */}
+                            {svgVishible?.moonSvg && (
+                              <Col
+                                md="6"
+                                className="panchang-chart mt-2 text-center"
+                              >
+                                <h6 className="fw-semibold text-center">
+                                  Moon Chart
+                                </h6>
+                                {ReactHtmlParser(moonSvg)}
+                              </Col>
+                            )}
+                            {/* SUN CHART  */}
+                            {svgVishible?.sunSvg && (
+                              <Col
+                                md="6"
+                                className="panchang-chart mt-2 text-center"
+                              >
+                                <h6 className="fw-semibold text-center">
+                                  Sun Chart
+                                </h6>
+                                {ReactHtmlParser(sunSvg)}
+                              </Col>
+                            )}
+                            {/* CHALIT CHART  */}
+                            {/* {svgVishible?.chalitSvg && (
+                              <Col
+                              md="6"
+                              className="panchang-chart mt-2 text-center"
+                              >
+                                <h6 className="fw-semibold text-center">
+                                  Chalit Chart
+                                </h6>
+                                {ReactHtmlParser(chalitSvg)}
+                              </Col>
+                              )} */}
 
+                            {/* HORA CHART  */}
+                            {svgVishible?.horaSvg && (
+                              <Col
+                                md="6"
+                                className="panchang-chart mt-2 text-center"
+                              >
+                                <h6 className="fw-semibold text-center">
+                                Hora(Wealth / Income Chart)
+                                </h6>
+                                {ReactHtmlParser(horaSvg)}
+                              </Col>
+                            )}
+                            {/* DRESHKAN CHART  */}
+                            {svgVishible?.dreshkanSvg && (
+                              <Col
+                                md="6"
+                                className="panchang-chart mt-2 text-center"
+                              >
+                                <h6 className="fw-semibold text-center">
+                                Drekkana(Relationship with siblings)
+                                </h6>
+                                {ReactHtmlParser(dreshkanSvg)}
+                              </Col>
+                            )}
+                            {/* SHASHTYMSHA CHART  */}
+                            {svgVishible?.shashtymshaSvg && (
+                              <Col
+                              md="6"
+                              className="panchang-chart mt-2 text-center"
+                              >
+                                <h6 className="fw-semibold text-center">
+                                Shastiamsa(Summary of charts)
+                                </h6>
+                                {ReactHtmlParser(shashtymshaSvg)}
+                              </Col>
+                              )}
                             {!svgVishible?.moonSvg && (
                               <Col md="6" className="text-center my-4">
                                 No Data Found
                               </Col>
                             )}
-                            {!svgVishible?.langnaSvg && (
+                            {!svgVishible?.lagnaSvg && (
                               <Col md="6" className="text-center my-4">
                                 No Data Found
-                              </Col>
-                            )}
-                            {svgVishible?.moonSvg && (
-                              <Col md="6" className="panchang-chart mt-2">
-                                <h6 className="fw-semibold text-center">
-                                  Moon Chart
-                                </h6>
-                            {  /*  <Convert string={moonSvg} />*/}
-                            ReactHtmlParser(moonSvg)
                               </Col>
                             )}
                           </Row>
@@ -622,7 +741,7 @@ const KundliReport = () => {
                     </TabPane>
                     <TabPane tabId="2">
                       <>
-                        <Row className= "animate__animated animate__zoomIn">
+                        <Row className="animate__animated animate__zoomIn">
                           <Col
                             sm="12"
                             className="kundlitable smooth-transition"
