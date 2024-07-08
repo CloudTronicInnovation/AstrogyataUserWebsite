@@ -276,12 +276,13 @@ class ChatApp extends React.Component {
                     }
                   }
 
-                  if (count === 1) {
+                  // if (count === 1) {
                     this.setState({
                       CurrentRoomid: response.data.data?.roomid,
                     });
                     this.setState({ roomChatData: respons.data.data });
-                  }
+                  // }
+                 
                   // const isKeyPresent = arrayOfObjects.some(obj => obj.hasOwnProperty(keyToCheck));
                   // this.setState({ chatRoomdata: response.data.data });
                   // console.log(respons.data);
