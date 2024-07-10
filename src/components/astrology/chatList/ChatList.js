@@ -194,7 +194,6 @@ class ChatList extends React.Component {
                       </button>
                     </Link>
                   </div>
-                  {console.log(allUserList)}
                   {allUserList?.length ? (
                     allUserList?.map((list) => {
                       console.log(list);
@@ -250,14 +249,14 @@ class ChatList extends React.Component {
                                   Mobile:
                                   <span> {list.mobile}</span>
                                 </li>
-                                <li>
+                                {/* <li>
                                   Occupation:
                                   <span> {list.occupation}</span>
                                 </li>
                                 <li>
                                   Marital Status:
                                   <span> {list.marital_status}</span>
-                                </li>
+                                </li> */}
                                 {list.p_birthPlace ? (
                                   <li>
                                     Partner BirthPlace:

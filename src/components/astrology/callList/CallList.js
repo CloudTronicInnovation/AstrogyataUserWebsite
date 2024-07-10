@@ -276,7 +276,7 @@ class CallList extends PureComponent {
                               <ul>
                                 <li className="">
                                   FirstName:
-                                  <span>{list.firstname}</span>
+                                  <span className="ms-1">{list.firstname}</span>
                                   <div
                                     className="delete"
                                     style={{
@@ -295,56 +295,56 @@ class CallList extends PureComponent {
                                 </li>
                                 <li>
                                   BirthPlace:
-                                  <span>
+                                  <span className="ms-1">
                                     {this.getBirthPlace(list.birthPlace)}
                                   </span>
                                 </li>
                                 <li>
                                   Date Of Time:
-                                  <span>{list.date_of_time}</span>
+                                  <span className="ms-1">{list.date_of_time}</span>
                                 </li>
                                 <li>
                                   Date Of Birth:
-                                  <span>{list.dob}</span>
+                                  <span className="ms-1">{list.dob}</span>
                                 </li>
                                 <li>
                                   Gender:
-                                  <span>{list.gender}</span>
+                                  <span className="ms-1">{list.gender}</span>
                                 </li>
                                 <li>
                                   Mobile:
-                                  <span>{list.mobile}</span>
+                                  <span className="ms-1">{list.mobile}</span>
                                 </li>
-                                <li>
+                                {/* <li>
                                   Occupation:
-                                  <span>{list.occupation}</span>
-                                </li>
-                                <li>
+                                  <span className="ms-1">{list.occupation}</span>
+                                </li> */}
+                                {/* <li>
                                   Marital Status:
-                                  <span>{list.marital_status}</span>
-                                </li>
+                                  <span className="ms-1">{list.marital_status}</span>
+                                </li> */}
                                 {list.p_birthPlace ? (
                                   <li>
                                     Partner BirthPlace:
-                                    <span>{list.p_birthPlace}</span>
+                                    <span className="ms-1">{list.p_birthPlace}</span>
                                   </li>
                                 ) : null}
                                 {list.p_date_of_time ? (
                                   <li>
                                     Partner Date Of Time:
-                                    <span>{list.p_date_of_time}</span>
+                                    <span className="ms-1">{list.p_date_of_time}</span>
                                   </li>
                                 ) : null}
                                 {list.p_firstname ? (
                                   <li>
                                     Partner First Name:
-                                    <span>{list.p_firstname}</span>
+                                    <span className="ms-1">{list.p_firstname}</span>
                                   </li>
                                 ) : null}
                                 {list.p_lastname ? (
                                   <li>
                                     Partner Last Name:
-                                    <span>{list.p_lastname}</span>
+                                    <span className="ms-1">{list.p_lastname}</span>
                                   </li>
                                 ) : null}
                                 {this.state.startCallFlag ? (

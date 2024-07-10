@@ -24,15 +24,32 @@ class UserRequestForm extends React.Component {
       birthPlace: "",
       p_birthPlace: "",
       gender: "",
-      marital_status: "",
-      occupation: "",
-      topic_of_cnsrn: "",
+      // marital_status: "",
+      // occupation: "",
+      // topic_of_cnsrn: "",
       // entertopic_of_cnsrn: "",
       data: [],
       state: [],
       city: [],
       country: [],
-      selectedCountry: null,
+      selectedCountry: {
+        name: "India",
+        isoCode: "IN",
+        flag: "🇮🇳",
+        phonecode: "91",
+        currency: "INR",
+        latitude: "20.00000000",
+        longitude: "77.00000000",
+        timezones: [
+          {
+            zoneName: "Asia/Kolkata",
+            gmtOffset: 19800,
+            gmtOffsetName: "UTC+05:30",
+            abbreviation: "IST",
+            tzName: "Indian Standard Time",
+          },
+        ],
+      },
       selectedState: null,
       selectedCity: null,
       selectedFile: null,
@@ -86,9 +103,9 @@ class UserRequestForm extends React.Component {
     data.append("date_of_time", this.state.date_of_time);
     data.append("p_date_of_time", this.state.p_date_of_time);
     data.append("gender", this.state.gender);
-    data.append("marital_status", this.state.marital_status);
-    data.append("occupation", this.state.occupation);
-    data.append("topic_of_cnsrn", this.state.topic_of_cnsrn);
+    // data.append("marital_status", this.state.marital_status);
+    // data.append("occupation", this.state.occupation);
+    // data.append("topic_of_cnsrn", this.state.topic_of_cnsrn);
     data.append("country", this.state.selectedCountry.name);
     data.append("state", this.state.selectedState.name);
     data.append("city", this.state.selectedCity.name);
@@ -104,7 +121,7 @@ class UserRequestForm extends React.Component {
       .then((response) => {
         console.log(response);
         this.props.history.push({
-          pathname: "/WaitingPageCall",
+          pathname: "/CallListData",
           state: response.data,
         });
       })
@@ -113,6 +130,14 @@ class UserRequestForm extends React.Component {
         console.log(error.data);
       });
   };
+  getTodayDate() {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = `0${date.getMonth() + 1}`.slice(-2);
+    const day = `0${date.getDate()}`.slice(-2);
+
+    return `${year}-${month}-${day}`;
+  }
   render() {
     return (
       <LayoutOne headerTop="visible">
@@ -210,8 +235,9 @@ class UserRequestForm extends React.Component {
                             name="dob"
                             value={this.state.dob}
                             onChange={this.changeHandler}
+                            max={this.getTodayDate()}
+                            placeholder="Enter Date of Birth"
                             required
-                            placeholder="Enter Your Number"
                           />
                         </div>
                       </Col>
@@ -228,7 +254,7 @@ class UserRequestForm extends React.Component {
                           />
                         </div>
                       </Col>
-                      <Col md="4">
+                      {/* <Col md="4">
                         <div class="form-group mtb-10">
                           <Label>Birth Place*</Label>
                           <Input
@@ -240,7 +266,7 @@ class UserRequestForm extends React.Component {
                             placeholder="Birth Place"
                           />
                         </div>
-                      </Col>
+                      </Col> */}
                       <Col lg="4" md="4" className="mt-2">
                         <Label>Gender*</Label>
                         <Input
@@ -260,6 +286,90 @@ class UserRequestForm extends React.Component {
                         </Input>
                       </Col>
                       <Col lg="4" md="4" sm="6" className="mt-2">
+                        <Label>Country</Label>
+                        <Select
+                          options={Country.getAllCountries()}
+                          getOptionLabel={(options) => {
+                            return options["name"];
+                          }}
+                          getOptionValue={(options) => {
+                            return options["name"];
+                          }}
+                          value={this.state.selectedCountry}
+                          onChange={(item) => {
+                            this.setState({ selectedCountry: item });
+                            // axiosConfig
+                            //   .post(`/user/time_zone`, {
+                            //     country_code: item?.timezones[0].zoneName,
+                            //   })
+                            //   .then(response => {
+                            //     this.setState({
+                            //       timezone: response?.data?.data?.timezone,
+                            //     });
+                            //   })
+                            //   .catch(error => {
+                            //     console.log(error);
+                            //   });
+                          }}
+                        />
+                      </Col>
+
+                      <Col lg="4" md="4" sm="6" className="mt-2">
+                        <Label>State</Label>
+                        <Select
+                          options={State?.getStatesOfCountry(
+                            this.state.selectedCountry?.isoCode
+                          )}
+                          getOptionLabel={(options) => {
+                            return options["name"];
+                          }}
+                          getOptionValue={(options) => {
+                            return options["name"];
+                          }}
+                          value={this.state.selectedState}
+                          onChange={(item) => {
+                            this.setState({ selectedState: item });
+                          }}
+                        />
+                      </Col>
+
+                      <Col lg="4" md="4" sm="6" className="mt-2">
+                        <Label>City</Label>
+                        <Select
+                          options={City.getCitiesOfState(
+                            this.state.selectedState?.countryCode,
+                            this.state.selectedState?.isoCode
+                          )}
+                          getOptionLabel={(options) => {
+                            return options["name"];
+                          }}
+                          getOptionValue={(options) => {
+                            return options["name"];
+                          }}
+                          value={this.state.selectedCity}
+                          onChange={(item) => {
+                            this.changeCity(item);
+                            this.setState({
+                              birthPlace: item.name,
+                            });
+                          }}
+                        />
+                      </Col>
+
+                      <Col md="4">
+                        <div class="form-group mtb-10">
+                          <Label>Birth Place*</Label>
+                          <input
+                            type="text"
+                            name="birthPlace1"
+                            value={this.state.selectedCity?.name}
+                            // onChange={ console.log(this.state.selectedCity)}
+                            required
+                            placeholder="Enter Your  Birth Place"
+                          />
+                        </div>
+                      </Col>
+                      {/* <Col lg="4" md="4" sm="6" className="mt-2">
                         <Label>Country</Label>
                         <Select
                           options={Country.getAllCountries()}
@@ -313,7 +423,7 @@ class UserRequestForm extends React.Component {
                             this.changeCity(item);
                           }}
                         />
-                      </Col>
+                      </Col> */}
                       {/* <Col md="4">
                         <div class="form-group ">
                           <Label>Marital Status*</Label>
@@ -439,6 +549,7 @@ class UserRequestForm extends React.Component {
                                 name="p_dob"
                                 value={this.state.p_dob}
                                 onChange={this.changeHandler}
+                                max={this.getTodayDate()}
                               />
                             </div>
                           </Col>
@@ -469,7 +580,7 @@ class UserRequestForm extends React.Component {
                           </Col>
                         </>
                       ) : null}
-                      <Col md="4">
+                      {/* <Col md="4">
                         <div class="form-group mtb-10">
                           <Label>Attachment</Label>
                           <Input
@@ -478,7 +589,7 @@ class UserRequestForm extends React.Component {
                             accept="image/png, image/jpeg,.doc,image/jpg,.pdf"
                           />
                         </div>
-                      </Col>
+                      </Col> */}
 
                       <Col md="12" className="mt-3">
                         <Button

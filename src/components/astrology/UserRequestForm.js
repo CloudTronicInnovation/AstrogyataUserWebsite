@@ -359,6 +359,7 @@ class UserRequestForm extends React.Component {
                               <input
                                 type="date"
                                 name="p_dob"
+                                max={this.getTodayDate()}
                                 value={this.state.p_dob}
                                 onChange={this.changeHandler}
                               />
@@ -605,7 +606,7 @@ class UserRequestForm extends React.Component {
                         </div>
                       </Col>
                        */}
-                      <Col md="4">
+                      {/* <Col md="4">
                         <div class="form-group mtb-10">
                           <Label>Attachment</Label>
                           <Input
@@ -614,7 +615,7 @@ class UserRequestForm extends React.Component {
                             accept="image/png, image/jpeg,.doc,image/jpg,.pdf"
                           />
                         </div>
-                      </Col>
+                      </Col> */}
 
                       <Col md="12" className="mt-3">
                         <Button className="btn btn-warning">
