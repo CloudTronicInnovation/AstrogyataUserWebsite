@@ -41,7 +41,7 @@ class UserRequestForm extends React.Component {
       showpartner: false,
     };
   }
-  changeCity = item => {
+  changeCity = (item) => {
     this.setState({
       selectedCity: item,
     });
@@ -50,25 +50,25 @@ class UserRequestForm extends React.Component {
     let userId = JSON.parse(localStorage.getItem("user_id"));
     axiosConfig
       .get(`/user/viewoneuser/${userId}`)
-      .then(response => {
+      .then((response) => {
         console.log();
         this.setState({ mobile: response.data.data.mobile });
         this.setState({ firstname: response.data.data.fullname });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
   //Attchment file Handler
-  onChangeHandler = event => {
+  onChangeHandler = (event) => {
     this.setState({ selectedFile: event.target.files[0] });
     this.setState({ selectedName: event.target.files[0].name });
     console.log("cdcd", event.target.files[0]);
   };
-  changeHandler = e => {
+  changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
-  submitHandler = e => {
+  submitHandler = (e) => {
     e.preventDefault();
     let userId = JSON.parse(localStorage.getItem("user_id"));
     let astroId = localStorage.getItem("astroId");
@@ -101,7 +101,7 @@ class UserRequestForm extends React.Component {
     }
     axiosConfig
       .post(`/user/add_chat_intake`, data)
-      .then(response => {
+      .then((response) => {
         console.log(response);
         this.props.history.push({
           pathname: "/WaitingPageCall",
@@ -109,7 +109,7 @@ class UserRequestForm extends React.Component {
         });
       })
 
-      .catch(error => {
+      .catch((error) => {
         console.log(error.data);
       });
   };
@@ -156,7 +156,7 @@ class UserRequestForm extends React.Component {
                     <Row>
                       <Col lg="2" sm="2" md="2">
                         <Input
-                          onClick={e => {
+                          onClick={(e) => {
                             this.setState({ showpartner: e.target.checked });
                           }}
                           width={14}
@@ -173,7 +173,7 @@ class UserRequestForm extends React.Component {
                       </Col>
                     </Row>
                   </div>
-                  <form onSubmit={e => this.submitHandler(e)}>
+                  <form onSubmit={(e) => this.submitHandler(e)}>
                     <Row>
                       <Col md="4">
                         <div class="form-group mtb-10">
@@ -263,14 +263,14 @@ class UserRequestForm extends React.Component {
                         <Label>Country</Label>
                         <Select
                           options={Country.getAllCountries()}
-                          getOptionLabel={options => {
+                          getOptionLabel={(options) => {
                             return options["name"];
                           }}
-                          getOptionValue={options => {
+                          getOptionValue={(options) => {
                             return options["name"];
                           }}
                           value={this.state.selectedCountry}
-                          onChange={item => {
+                          onChange={(item) => {
                             this.setState({ selectedCountry: item });
                           }}
                         />
@@ -282,14 +282,14 @@ class UserRequestForm extends React.Component {
                           options={State?.getStatesOfCountry(
                             this.state.selectedCountry?.isoCode
                           )}
-                          getOptionLabel={options => {
+                          getOptionLabel={(options) => {
                             return options["name"];
                           }}
-                          getOptionValue={options => {
+                          getOptionValue={(options) => {
                             return options["name"];
                           }}
                           value={this.state.selectedState}
-                          onChange={item => {
+                          onChange={(item) => {
                             this.setState({ selectedState: item });
                           }}
                         />
@@ -302,19 +302,19 @@ class UserRequestForm extends React.Component {
                             this.state.selectedState?.countryCode,
                             this.state.selectedState?.isoCode
                           )}
-                          getOptionLabel={options => {
+                          getOptionLabel={(options) => {
                             return options["name"];
                           }}
-                          getOptionValue={options => {
+                          getOptionValue={(options) => {
                             return options["name"];
                           }}
                           value={this.state.selectedCity}
-                          onChange={item => {
+                          onChange={(item) => {
                             this.changeCity(item);
                           }}
                         />
                       </Col>
-                      <Col md="4">
+                      {/* <Col md="4">
                         <div class="form-group ">
                           <Label>Marital Status*</Label>
                           <Input
@@ -390,7 +390,7 @@ class UserRequestForm extends React.Component {
                             <option>Others</option>
                           </Input>
                         </div>
-                      </Col>
+                      </Col> */}
                       {/* <Col md="4">
                         <div class="form-group mtb-10">
                           <Label>Enter topic of concern:</Label>
@@ -481,7 +481,10 @@ class UserRequestForm extends React.Component {
                       </Col>
 
                       <Col md="12" className="mt-3">
-                      <Button className="btn btn-warning" onClick={this.submitHandler}>
+                        <Button
+                          className="btn btn-warning"
+                          onClick={this.submitHandler}
+                        >
                           Start Call with {localStorage.getItem("astroname")}
                         </Button>
                       </Col>

@@ -104,7 +104,9 @@ class UserRequestForm extends React.Component {
     e.preventDefault();
     let userId = JSON.parse(localStorage.getItem("user_id"));
     let astroId = localStorage.getItem("astroId");
-    const formattedDate = moment(this.state.dob, 'YYYY-MM-DD').format('DD/MM/YYYY');
+    const formattedDate = moment(this.state.dob, "YYYY-MM-DD").format(
+      "DD/MM/YYYY"
+    );
     // debugger;
     const data = new FormData();
     data.append("userid", userId);
@@ -184,7 +186,6 @@ class UserRequestForm extends React.Component {
                   pathname: "/ChatListData",
                   state: res.data,
                 });
-
               } else swal("Not having Enough Balance");
             })
             .catch((err) => {
@@ -207,7 +208,7 @@ class UserRequestForm extends React.Component {
     const day = `0${date.getDate()}`.slice(-2);
 
     return `${year}-${month}-${day}`;
-  };
+  }
   render() {
     return (
       <LayoutOne headerTop="visible">
@@ -493,7 +494,7 @@ class UserRequestForm extends React.Component {
                           <option value="Female">Female</option>
                         </Input>
                       </Col>
-
+                      {/* 
                       <Col lg="4" md="4" sm="6" className="my-2 ">
                         <Label>Marital Status*</Label>
                         <Input
@@ -513,6 +514,7 @@ class UserRequestForm extends React.Component {
                           <option>Widowed</option>
                         </Input>
                       </Col>
+
                       <Col lg="4" md="4" sm="6">
                         <div class="form-group mtb-10">
                           <Label>Occupation*</Label>
@@ -543,6 +545,7 @@ class UserRequestForm extends React.Component {
                           </Input>
                         </div>
                       </Col>
+
                       <Col lg="4" md="4" sm="6">
                         <div class="form-group mtb-10">
                           <Label>Topic of concern*</Label>
@@ -601,6 +604,7 @@ class UserRequestForm extends React.Component {
                           </Input>
                         </div>
                       </Col>
+                       */}
                       <Col md="4">
                         <div class="form-group mtb-10">
                           <Label>Attachment</Label>
