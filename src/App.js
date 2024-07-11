@@ -205,7 +205,7 @@ const FreeKundli = lazy(() =>
 );
 const KundaliReport = lazy(() =>
   import("./components/astrology/kundalimatch/kundalireport")
-); 
+);
 const PitraDosh = lazy(() => import("./components/astrology/PitraDosh"));
 const KalsharpDosh = lazy(() => import("./components/astrology/KalsharpDosh"));
 const ManglikDosh = lazy(() => import("./components/astrology/ManglikDosh"));
@@ -340,8 +340,9 @@ const KundaliMatchList = lazy(() =>
 const VarshPhala = lazy(() =>
   import("./components/astrology/kundalimatch/varshphala.js")
 );
-const VarshphalReport = lazy(() => 
- import("./components/astrology/kundalimatch/varshphalreport.js")) 
+const VarshphalReport = lazy(() =>
+  import("./components/astrology/kundalimatch/varshphalreport.js")
+);
 const WalletMoney = lazy(() => import("./components/astrology/WalletMoney"));
 const WalletTransacList = lazy(() =>
   import("./components/astrology/WalletTransacList")
@@ -352,6 +353,13 @@ const ConversationList = lazy(() =>
 const PaymentDetail = lazy(() =>
   import("./components/astrology/PaymentDetail")
 );
+const PaymentSuccess = lazy(() =>
+  import("./components/astrology/PaymentSuccess.js")
+);
+const PaymentFailed = lazy(() =>
+  import("./components/astrology/PaymentFailure.js")
+);
+
 const NotificationList = lazy(() =>
   import("./components/astrology/NotificationList")
 );
@@ -374,7 +382,7 @@ const Checkout = lazy(() => import("./pages/other/Checkout"));
 
 const NotFound = lazy(() => import("./pages/other/NotFound"));
 
-const App = props => {
+const App = (props) => {
   useEffect(() => {
     props.dispatch(
       loadLanguages({
@@ -455,7 +463,7 @@ const App = props => {
                   />
                   <Route
                     path={process.env.PUBLIC_URL + "/shop-list-standard/:_id"}
-                    render={routeProps => (
+                    render={(routeProps) => (
                       <Product
                         {...routeProps}
                         key={routeProps.match.params._id}
@@ -474,7 +482,7 @@ const App = props => {
                   {/* Shop product pages */}
                   <Route
                     path={process.env.PUBLIC_URL + "/product/:id"}
-                    render={routeProps => (
+                    render={(routeProps) => (
                       <Product
                         {...routeProps}
                         key={routeProps.match.params.id}
@@ -616,6 +624,14 @@ const App = props => {
                     component={PaymentDetail}
                   />
                   <Route
+                    path={process.env.PUBLIC_URL + "/Paymentsuccess"}
+                    component={PaymentSuccess}
+                  />
+                  <Route
+                    path={process.env.PUBLIC_URL + "/Paymentfailure"}
+                    component={PaymentFailed}
+                  />
+                  <Route
                     path={process.env.PUBLIC_URL + "/walletaddform"}
                     component={WalletAddForm}
                   />
@@ -723,19 +739,19 @@ const App = props => {
                     path={process.env.PUBLIC_URL + "/freekundli"}
                     component={FreeKundli}
                   />
-                   <Route
-                  path={process.env.PUBLIC_URL + "/kundalireport"}
-                  component={KundaliReport}
-                />
+                  <Route
+                    path={process.env.PUBLIC_URL + "/kundalireport"}
+                    component={KundaliReport}
+                  />
                   <Route
                     path={process.env.PUBLIC_URL + "/manglikdosh"}
                     component={ManglikDosh}
                   />
                   <Route
-                  path={process.env.PUBLIC_URL + "/varshphala"} 
-                  component={VarshPhala}
-                />
-                 <Route
+                    path={process.env.PUBLIC_URL + "/varshphala"}
+                    component={VarshPhala}
+                  />
+                  <Route
                     path={process.env.PUBLIC_URL + "/varshphalreport"}
                     component={VarshphalReport}
                   />
