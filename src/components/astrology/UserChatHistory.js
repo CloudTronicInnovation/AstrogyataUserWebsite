@@ -54,7 +54,7 @@ class UserChatHistory extends React.Component {
 
         {
           headerName: "Duration",
-          field: "totalDuration",
+          field: "duration",
           sortable: true,
           filter: "agNumberColumnFilter",
         },

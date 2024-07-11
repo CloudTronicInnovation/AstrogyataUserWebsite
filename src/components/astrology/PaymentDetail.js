@@ -52,7 +52,7 @@ class PaymentDetail extends React.Component {
   componentDidUpdate(prevProps) {
     console.log(" update", prevProps);
   }
-  submitHandler = async e => {
+  submitHandler = async (e) => {
     e.preventDefault();
 
     const data = {
@@ -72,11 +72,11 @@ class PaymentDetail extends React.Component {
 
     await axiosConfig
       .post(`/api/payment`, data)
-      .then(response => {
+      .then((response) => {
         // console.log(response?.data);
         window.open(response?.data);
       })
-      .catch(error => {
+      .catch((error) => {
         swal("Error!", "You clicked the button!", "error");
         console.log(error);
       });
@@ -86,17 +86,17 @@ class PaymentDetail extends React.Component {
       userid: userId,
       amount: Number(this.state.totalAmt).toFixed(2),
     };
-    axiosConfig
-      .post(`/user/add_custome_amt`, obj)
-      .then(response => {
-        // console.log("@@@@@", response.data.data);
-        // swal("Success!", "Submitted SuccessFull!", "success");
-      })
+    // axiosConfig
+    //   .post(`/user/add_custome_amt`, obj)
+    //   .then(response => {
+    //     // console.log("@@@@@", response.data.data);
+    //     // swal("Success!", "Submitted SuccessFull!", "success");
+    //   })
 
-      .catch(error => {
-        swal("Error!", "You clicked the button!", "error");
-        console.log(error);
-      });
+    //   .catch(error => {
+    //     swal("Error!", "You clicked the button!", "error");
+    //     console.log(error);
+    //   });
   };
 
   render() {

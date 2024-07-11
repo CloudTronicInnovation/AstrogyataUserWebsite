@@ -14,6 +14,7 @@ import "../../assets/scss/astroteam.scss";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import axiosConfig from "../../axiosConfig";
 import swal from "sweetalert";
+import Swal from "sweetalert2";
 
 class WalletAddForm extends React.Component {
   constructor(props) {
@@ -32,10 +33,10 @@ class WalletAddForm extends React.Component {
       modal: !this.state.modal,
     });
   }
-  changeHandler = e => {
+  changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
-  submitHandler = e => {
+  submitHandler = (e) => {
     e.preventDefault();
     // let { id } = this.props.match.params
     // console.log(id)
@@ -45,18 +46,28 @@ class WalletAddForm extends React.Component {
       amount: parseInt(this.state.amount),
     };
 
-    axiosConfig
-      .post(`/user/add_custome_amt`, obj)
-      .then(response => {
-        console.log("@@@@@", response.data.data);
-        swal("Success!", "Submitted SuccessFull!", "success");
-        this.props.history.push("/allastrologerlist");
-      })
-
-      .catch(error => {
-        swal("Error!", "You clicked the button!", "error");
-        console.log(error);
+    if (this.state.amount >= 1) {
+      // navigate to
+      this.props.history.push({
+        pathname: "/paymentdetail",
+        state: this.state.amount,
       });
+    } else {
+      swal("Error", "Please enter valid amount");
+    }
+
+    // axiosConfig
+    //   .post(`/user/add_custome_amt`, obj)
+    //   .then(response => {
+    //     console.log("@@@@@", response.data.data);
+    //     swal("Success!", "Submitted SuccessFull!", "success");
+    //     this.props.history.push("/allastrologerlist");
+    //   })
+
+    //   .catch(error => {
+    //     swal("Error!", "You clicked the button!", "error");
+    //     console.log(error);
+    //   });
   };
   render() {
     return (
@@ -73,11 +84,12 @@ class WalletAddForm extends React.Component {
                       <Col md="12">
                         <label>Amount</label>
                         <input
-                          type="text"
+                          type="number"
                           placeholder="Enter Amount"
                           name="amount"
                           value={this.state.amount}
                           onChange={this.changeHandler}
+                          required
                         />
                       </Col>
                       <Col md="12" className="mt-3">

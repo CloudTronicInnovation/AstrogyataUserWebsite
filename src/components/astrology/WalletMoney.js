@@ -70,6 +70,7 @@ class WalletMoney extends React.Component {
 
   render() {
     const { planList } = this.state;
+    console.log(planList);
     return (
       <LayoutOne headerTop="visible">
         <section className="pt-0 pb-0">
