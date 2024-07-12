@@ -52,16 +52,19 @@ class PaymentDetail extends React.Component {
   componentDidUpdate(prevProps) {
     console.log(" update", prevProps);
   }
+  
   submitHandler = async (e) => {
+    userId = JSON.parse(localStorage.getItem("user_id"));
     e.preventDefault();
-
     const data = {
       name: "Sanggjay",
       amount: Number(this.state.totalAmt).toFixed(2),
       number: 7999029856,
+      userid : userId,
       MUID: "MUID" + Date.now(),
       transactionId: "T" + Date.now(),
     };
+    console.log(data);
     // const data = {
     //   name: this.state.name,
     //   amount: this.state.amount,
