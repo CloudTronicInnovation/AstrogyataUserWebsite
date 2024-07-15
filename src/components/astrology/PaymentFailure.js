@@ -22,9 +22,23 @@ const PaymentFailed = () => {
   // }
 
   useEffect(() => {
-    const intervel = setInterval(() => {
-      setCountDown((ps) => ps - 1);
-    }, 1000);
+    const savedEndTime = localStorage.getItem('endTime');
+    const endTime = savedEndTime ? new Date(parseInt(savedEndTime)) : new Date(Date.now() + 10000);
+    localStorage.setItem('endTime', endTime.getTime());
+
+      const updateCountdown = () => {
+      const now = new Date();
+      const remainingTime = Math.max(0, Math.floor((endTime - now) / 1000));
+      setCountDown(remainingTime);
+      if (remainingTime <= 0) {
+        history.push("/");
+        localStorage.removeItem("endTime")
+      }
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+
     // return () => clearInterval(intervel);
     // Redirect to the home page after 10 seconds
     const timer = setTimeout(() => {
@@ -33,7 +47,7 @@ const PaymentFailed = () => {
 
     return () => {
       clearTimeout(timer);
-      clearInterval(intervel);
+      clearInterval(interval);
     };
   }, [history]);
 

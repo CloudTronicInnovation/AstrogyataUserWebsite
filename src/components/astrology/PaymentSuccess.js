@@ -2,6 +2,7 @@ import React,{useEffect, useState} from "react";
 import "../.././assets/./scss/paymentpage.css";
 import { useLocation, useHistory  } from "react-router-dom";
 import { Component } from "ag-grid-community";
+import { clear } from "redux-localstorage-simple";
 
 const PaymentSuccess = () => {
   const [countDown, setCountDown] = useState(10);
@@ -29,9 +30,23 @@ const PaymentSuccess = () => {
 // }
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCountDown((countDown) => countDown - 1);
-    }, 1000);
+    const savedEndTime = localStorage.getItem('endTime');
+    const endTime = savedEndTime ? new Date(parseInt(savedEndTime)) : new Date(Date.now() + 10000);
+    localStorage.setItem('endTime', endTime.getTime());
+
+      const updateCountdown = () => {
+      const now = new Date();
+      const remainingTime = Math.max(0, Math.floor((endTime - now) / 1000));
+      setCountDown(remainingTime);
+      if (remainingTime <= 0) {
+        history.push("/");
+        localStorage.removeItem("endTime")
+      }
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+
     // Redirect to the home page after 10 seconds
     const timer = setTimeout(() => {
       history.push("/");
@@ -52,11 +67,11 @@ const PaymentSuccess = () => {
             <h2>Thank You</h2>
             <h4>{message}</h4>
             <p>Transaction ID: {transactionId}</p>
-            <p>Amount: ${amount}</p>
+            <p>Amount:{amount}₹</p>
             <p>
-              Thank you for your payment. We will <br />
-              be in contact with more details shortly.
+              Thank you for your payment.<br />
             </p>
+            <p>{amount}₹ Successfully Added In Your Wallet</p>
             <h1>Redirect in Home {countDown}</h1>
           </div>
         </div>
