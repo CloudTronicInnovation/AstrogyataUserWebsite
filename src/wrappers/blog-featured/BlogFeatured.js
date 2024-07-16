@@ -50,11 +50,11 @@ const BlogFeatured = ({ spaceTopClass, spaceBottomClass }) => {
           <div style={{ width: "100%" }}>
             {/* <img src={appImg} height={100} alt="" /> */}
           </div>
-          Download link
+          {/* Download link
           <a className="px-2" href="https://astrogyata.in/app-release.apk">
             https://astrogyata.in/app-release.apk
           </a>
-          <span className="px-2">Only for android</span>
+          <span className="px-2">Only for android</span> */}
         </div>
       </div>
     </div>

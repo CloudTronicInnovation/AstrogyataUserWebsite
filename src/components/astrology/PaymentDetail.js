@@ -130,7 +130,8 @@ class PaymentDetail extends React.Component {
         <section>
           <Container>
             <Row>
-              <Col lg="4">
+              {/* <Col lg="4"> */}
+              <Col lg="8">
                 <div className="order-bx">
                   <h3 className="py-3">Total Amount</h3>
                   <hr></hr>
@@ -155,7 +156,7 @@ class PaymentDetail extends React.Component {
                 </div>
               </Col>
               <Col lg="8" className="py-5">
-                <Row>
+                {/* <Row>
                   <Col md="12">
                     <div className="off-code">
                       <div className="w-offer">
@@ -221,8 +222,15 @@ class PaymentDetail extends React.Component {
                       </Link>
                     </div>
                   </Col>
-                </Row>
-                <Button onClick={this.submitHandler}>Pay Now</Button>
+                </Row> */}
+                <Button
+                class="render"
+                 className="btn btn-success"
+                style={{
+                  position: 'relative',
+                  top: '-40px' 
+                }}
+                 onClick={this.submitHandler}>Pay Now</Button>
               </Col>
             </Row>
           </Container>

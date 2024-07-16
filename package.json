@@ -20,6 +20,7 @@
     "bootstrap": "^5.3.3",
     "bs-stepper": "^1.7.0",
     "chart.js": "^4.4.2",
+    "compass-mixins": "^0.12.12",
     "convert-svg-react": "^1.0.0",
     "country-state-city": "^3.1.2",
     "firebase": "^9.14.0",
