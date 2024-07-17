@@ -108,7 +108,7 @@ class UserChatHistory extends React.Component {
     axiosConfig
       .get(`/user/userChathistory/${userId}`)
       .then(response => {
-        // console.log(response);
+        console.log(response);
         this.setState({
           amount: response.data.data.amount,
         });

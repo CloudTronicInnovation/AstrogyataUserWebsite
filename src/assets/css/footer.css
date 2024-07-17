@@ -2,7 +2,7 @@
     position: relative; 
     display: block;
     width: 155px;
-    height: 55px;
+    height: 45px;
     text-align: center;
     line-height: 70px; /* Adjusted to match the height */
     /* background: #333; */
@@ -39,10 +39,9 @@
   
   .icon-container a img {
     display: block;
-    width: 160px; /* Adjust the image size */
-    height: 55px; /* Adjust the image size */
+    width: 155px; /* Adjust the image size */
+    height: 45px; /* Adjust the image size */
     border-radius: 5%;
     margin: auto;
     transition: .5s;
   }
-  

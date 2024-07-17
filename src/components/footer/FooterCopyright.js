@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
-import playStoreIcon from "../../assets/img/footer/PlayStore.png";
+import playStoreIcon from "../../assets/img/footer/PlayStore1.webp";
 import "../../assets/css/footer.css"
 
 const FooterCopyright = ({ footerLogo, spaceBottomClass, colorClass }) => {
@@ -33,7 +33,7 @@ const FooterCopyright = ({ footerLogo, spaceBottomClass, colorClass }) => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img src={playStoreIcon} alt="Example" height={55} />
+          <img src={playStoreIcon} alt="Example" height={49} />
         </a>
       </div>
     </div>
