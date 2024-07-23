@@ -249,13 +249,26 @@ class ChatApp extends React.Component {
     const UserChatData = JSON.parse(localStorage.getItem("UserChatData"));
     let userid = JSON.parse(localStorage.getItem("user_id"));
 
-    if (userid !== "" && userid !== null) {
-      if (this.state.msg !== "") {
-        let value = `First Name: ${UserChatData?.firstname}, Birth Place: ${UserChatData?.birthPlace}, Birth Time: ${UserChatData?.date_of_time}, Date Birth: ${UserChatData?.dob}, Gender: ${UserChatData?.gender}`;
+    // if (userid !== "" && userid !== null) {
+    //   if (this.state.msg !== "") {
+    //     let value = `First Name: ${UserChatData?.firstname}, Birth Place: ${UserChatData?.birthPlace}, Birth Time: ${UserChatData?.date_of_time}, Date Birth: ${UserChatData?.dob}, Gender: ${UserChatData?.gender}`;
 
+    //     let obj = {
+    //       astroid: astroId,
+    //       msg: value,
+    //     };
+
+    if (userid !== "" && userid !== null) {
+      let message;
+      if (UserChatData !== null) {
+        message = `First Name: ${UserChatData.firstname}, Birth Place: ${UserChatData.birthPlace}, Birth Time: ${UserChatData.date_of_time}, Date Birth: ${UserChatData.dob}, Gender: ${UserChatData.gender}`;
+      } else {
+        message = "Namaste Ji";
+      }
+      if (this.state.msg !== "") {
         let obj = {
           astroid: astroId,
-          msg: value,
+          msg: message,
         };
 
         axiosConfig
@@ -277,12 +290,12 @@ class ChatApp extends React.Component {
                   }
 
                   // if (count === 1) {
-                    this.setState({
-                      CurrentRoomid: response.data.data?.roomid,
-                    });
-                    this.setState({ roomChatData: respons.data.data });
+                  this.setState({
+                    CurrentRoomid: response.data.data?.roomid,
+                  });
+                  this.setState({ roomChatData: respons.data.data });
                   // }
-                 
+
                   // const isKeyPresent = arrayOfObjects.some(obj => obj.hasOwnProperty(keyToCheck));
                   // this.setState({ chatRoomdata: response.data.data });
                   // console.log(respons.data);
@@ -304,12 +317,12 @@ class ChatApp extends React.Component {
             // swal("Error!", "You clicked the button!", "error");
             console.log(error);
           });
-      } else   
-      Swal.fire({
-        title: "Message cannot be send empty",
-        width: "300px",
-        timer: 1500,
-      });
+      } else
+        Swal.fire({
+          title: "Message cannot be send empty",
+          width: "300px",
+          timer: 1500,
+        });
     }
   };
   startTimer() {
@@ -524,7 +537,7 @@ class ChatApp extends React.Component {
   //     this.setState({ checkRoomStatusFlag: false });
   //   }
   // };
-  
+
   // submitHandler = async (e) => {
   //   e.preventDefault();
   //   console.log("submittttt");
@@ -546,7 +559,7 @@ class ChatApp extends React.Component {
   //             axiosConfig
   //               .get(`/user/allchatwithuser/${response.data?.data?.roomid}`)
   //               .then((respons) => {
-  //                 // console.log(respons.data);              
+  //                 // console.log(respons.data);
   //               })
   //               .catch((error) => {
   //                 console.log(error);
@@ -557,7 +570,7 @@ class ChatApp extends React.Component {
   //           // swal("Error!", "You clicked the button!", "error");
   //           console.log(error);
   //         });
-  //     } else 
+  //     } else
   //     Swal.fire({
   //       title: "Message cannot be send empty",
   //       width: "300px",
@@ -645,12 +658,12 @@ class ChatApp extends React.Component {
             // swal("Error!", "You clicked the button!", "error");
             console.log(error);
           });
-      } else 
-      Swal.fire({
-        title: "Message cannot be send empty",
-        width: "300px",
-        timer: 1500,
-      });
+      } else
+        Swal.fire({
+          title: "Message cannot be send empty",
+          width: "300px",
+          timer: 1500,
+        });
     }
 
     if (this.state.checkRoomStatusFlag) {

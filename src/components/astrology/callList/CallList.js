@@ -263,7 +263,7 @@ class CallList extends PureComponent {
                       className="btn btn-denger wr"
                     >
                       <button className="btn btn-denger wr">
-                        Add New Intake Form
+                        Add New Birth Details
                       </button>
                     </Link>
                   </div>

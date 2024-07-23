@@ -117,6 +117,7 @@ class ChatList extends React.Component {
     localStorage.setItem("UserChatData", JSON.stringify(list));
     let astroId = localStorage.getItem("astroId");
     console.log("astroId", astroId);
+    console.log(list);
 
     const data = {
       userid: userId,
@@ -140,6 +141,35 @@ class ChatList extends React.Component {
         console.log(error);
       });
   };
+
+  handleChatWithoutDetails = () => {
+    let userId = JSON.parse(localStorage.getItem("user_id"));
+    let astroId = localStorage.getItem("astroId");
+    localStorage.removeItem("UserChatData")
+
+    const data = {
+      userid: userId,
+      astroid: astroId,
+      type: "Chat",
+    };
+
+    axiosConfig
+      .post(`/user/addCallWallet`, data)
+      .then((response) => {
+        console.log(response.data);
+        if (response.data.status === true) {
+          this.props.history.push({
+            pathname: "/waitingpagechat",
+            state: response.data,
+          });
+        } else swal("Recharge", "you don't have enough Balance");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+
   getBirthPlace(data) {
     // check if object
     const flag = data.includes("{");
@@ -186,11 +216,21 @@ class ChatList extends React.Component {
           <div className="category-home">
             <section className="pt-0">
               <Container>
-                <Row>
+                <Row> 
+                <div className="my-1">
+                    {/* <Link to="/userrequestform" className="btn btn-denger wr"> */}
+                      <button 
+                       className="btn btn-danger wr"
+                       onClick={this.handleChatWithoutDetails}
+                      >
+                        Chat Without Birth Details
+                      </button>
+                    {/* </Link> */}
+                  </div>
                   <div className="my-1">
                     <Link to="/userrequestform" className="btn btn-denger wr">
                       <button className="btn btn-denger wr">
-                        Add New Intake Form
+                        Add New Birth Details
                       </button>
                     </Link>
                   </div>

@@ -57,6 +57,8 @@ class AstrologerDetail extends React.Component {
       astro: "",
       avg_rating: [false],
       useramount: "",
+      callingStatus: null,
+      status: 'online',
     };
 
     this.state = {
@@ -248,6 +250,7 @@ class AstrologerDetail extends React.Component {
     localStorage.setItem("videoCallAstro_id", id);
     this.checkAstroStatus2();
     this.handleStartViewOneAstro();
+    this.astroCallingStatus();
 
     // const astroId = localStorage.getItem("videoCallAstro_id");
     //  const { id } = this.props.match.params;
@@ -309,7 +312,7 @@ class AstrologerDetail extends React.Component {
         console.log(error);
       });
   };
-  componentWillUnmount(){
+  componentWillUnmount() {
     clearInterval(sessionStorage.getItem("checkastrointervalid"));
   }
 
@@ -347,6 +350,20 @@ class AstrologerDetail extends React.Component {
       swal("Alert", "Need To Login First");
     }
   };
+
+  astroCallingStatus = () => {
+    const astroid = localStorage.getItem("astroId");
+    axiosConfig
+      .get(`/admin/getoneAstro/${astroid}`)
+      .then((result) => {
+        const status = result.data.data.callingStatus;
+        this.setState({ callingStatus: status });
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
+
   checkAstroStatus = () => {
     const astroid = localStorage.getItem("astro_id_to_notify");
 
@@ -399,49 +416,48 @@ class AstrologerDetail extends React.Component {
     }
   }
 
-  checkAstroStatus2(){
-    
+  checkAstroStatus2() {
     const { id } = this.props.match.params;
-      axiosConfig
-        .get(`/admin/getoneAstro/${id}`)
-        .then((response) => {
-          localStorage.setItem("astroname", response?.data?.data?.fullname);
-          this.setState({ astroData: response.data.data });
-          this.setState({
-            all_skills: response.data.data.all_skills,
-            language: response.data.data.language,
-            img: response.data.data.img[0],
-            avg_rating: response.data.data.avg_rating,
-            Exp: response.data.data.Exp,
-            callCharge: response.data.data.callCharge,
-            long_bio: response.data.data.long_bio,
-            msg: response.data.data.msg,
-            astroMobile: response?.data?.data?.mobile,
-            status: response?.data?.data?.status,
-            exp_in_years: response.data.data.exp_in_years,
-            astroId: response?.data?.data?._id,
-            sunday: response.data.data.sunday,
-            monday: response.data.data.monday,
-            friday: response.data.data.friday,
-            tuesday: response.data.data.tuesday,
-            thursday: response.data.data.thursday,
-            saturday: response.data.data.saturday,
-            wednesday: response.data.data.wednesday,
-          });
-        })
-        .catch((error) => {
-          console.log(error);
+    axiosConfig
+      .get(`/admin/getoneAstro/${id}`)
+      .then((response) => {
+        localStorage.setItem("astroname", response?.data?.data?.fullname);
+        this.setState({ astroData: response.data.data });
+        this.setState({
+          all_skills: response.data.data.all_skills,
+          language: response.data.data.language,
+          img: response.data.data.img[0],
+          avg_rating: response.data.data.avg_rating,
+          Exp: response.data.data.Exp,
+          callCharge: response.data.data.callCharge,
+          long_bio: response.data.data.long_bio,
+          msg: response.data.data.msg,
+          astroMobile: response?.data?.data?.mobile,
+          status: response?.data?.data?.status,
+          exp_in_years: response.data.data.exp_in_years,
+          astroId: response?.data?.data?._id,
+          sunday: response.data.data.sunday,
+          monday: response.data.data.monday,
+          friday: response.data.data.friday,
+          tuesday: response.data.data.tuesday,
+          thursday: response.data.data.thursday,
+          saturday: response.data.data.saturday,
+          wednesday: response.data.data.wednesday,
         });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   handleStartViewOneAstro = () => {
-    console.log('handle1');
-  const intervalid=  setInterval(() => {
-    console.log('handle2');
-
+    console.log("handle1");
+    const intervalid = setInterval(() => {
+      console.log("handle2");
+      this.astroCallingStatus();
       this.checkAstroStatus2();
     }, 5000);
-    sessionStorage.setItem("checkastrointervalid",intervalid);
+    sessionStorage.setItem("checkastrointervalid", intervalid);
   };
   render() {
     const icons = {
@@ -586,15 +602,8 @@ class AstrologerDetail extends React.Component {
                         </Col>
                         <Col md="3" className="mt-30">
                           <Button
-                            disabled={
-                              this.state.status === "offline" ? true : false
-                            }
-                            // style={{
-                            //   backgroundColor:
-                            //     this.state.status === "offline"
-                            //       ? "#9f8211"
-                            //       : "primary",
-                            // }}
+                             disabled={this.state.callingStatus === 'Offline' || this.state.status === 'offline'}
+                      
                             className="btn-as st"
                             onClick={() => this.handleStartCall()}
                           >
@@ -602,6 +611,8 @@ class AstrologerDetail extends React.Component {
                             <span className="m-2">Start Call</span>
                           </Button>
                         </Col>
+
+
                         {/* <Col md="3" className="mt-30">
                           <Button
                             disabled={
@@ -624,41 +635,38 @@ class AstrologerDetail extends React.Component {
                             <span className="m-1"> Start Video</span>
                           </Button>
                         </Col> */}
-                       <Col md="3" className="mt-30">
-                         {
-                          (this.state.status === "Offline")?
-                          <Button
-                            disabled={
-                              this.state.status === "Online" ? true : false
-                            }
-                           
-
-                            onClick={() => this.handleGetNotify()}
-                            className="btn-as st"
-                            // onClick={this.handleStartChat}
-                          >
-                            {localStorage.getItem("astro_id_to_notify") ==
-                            null ? (
-                              <>
-                                {" "}
-                                <i
-                                  className="fa fa-bell-o"
-                                  aria-hidden="true"
-                                ></i>
-                                <span className="m-1">Get Nofity</span>
-                              </>
-                            ) : (
-                              <>
-                                {" "}
-                                <i
-                                  className="fa fa-bell-o"
-                                  aria-hidden="true"
-                                ></i>
-                                <span className="m-1">Remove Nofity</span>
-                              </>
-                            )}
-                          </Button>:null
-                         } 
+                        <Col md="3" className="mt-30">
+                          {this.state.status === "Offline" ? (
+                            <Button
+                              disabled={
+                                this.state.status === "Online" ? true : false
+                              }
+                              onClick={() => this.handleGetNotify()}
+                              className="btn-as st"
+                              // onClick={this.handleStartChat}
+                            >
+                              {localStorage.getItem("astro_id_to_notify") ==
+                              null ? (
+                                <>
+                                  {" "}
+                                  <i
+                                    className="fa fa-bell-o"
+                                    aria-hidden="true"
+                                  ></i>
+                                  <span className="m-1">Get Nofity</span>
+                                </>
+                              ) : (
+                                <>
+                                  {" "}
+                                  <i
+                                    className="fa fa-bell-o"
+                                    aria-hidden="true"
+                                  ></i>
+                                  <span className="m-1">Remove Nofity</span>
+                                </>
+                              )}
+                            </Button>
+                          ) : null}
                         </Col>
                       </Row>
                     </Col>

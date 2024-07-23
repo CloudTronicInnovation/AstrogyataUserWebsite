@@ -222,7 +222,7 @@ export default class LoginRegister extends Component {
                                     </Col>
                                   </Row>
                                   <div className="button-box">
-                                    <div className="login-toggle-btn">
+                                    {/* <div className="login-toggle-btn">
                                       <Link
                                         to={
                                           process.env.PUBLIC_URL +
@@ -231,7 +231,7 @@ export default class LoginRegister extends Component {
                                       >
                                         Forgot Password?
                                       </Link>
-                                    </div>
+                                    </div> */}
                                     <div className="login-toggle-btn"></div>
                                     <button type="submit">
                                       <span>Login</span>
@@ -252,21 +252,13 @@ export default class LoginRegister extends Component {
                                 method="post"
                               >
                                 <Row>
-                                  <Col md="12">
-                                    <h3>User Image</h3>
-                                    <Input
-                                      type="file"
-                                      name="userimg"
-                                      onChange={this.onChangeHandler}
-                                      className="form-controller"
-                                    />
-                                  </Col>
+                                
                                   <Col md="6">
                                     <Input
                                       type="text"
                                       name="fullname"
                                       required
-                                      placeholder="Enter Your Fullname"
+                                      placeholder="Enter Your Name"
                                       value={this.state.fullname}
                                       onChange={this.changeHandler}
                                       className="form-controller"
@@ -295,30 +287,30 @@ export default class LoginRegister extends Component {
                                       className="form-controller"
                                     />
                                   </Col>
-                                  <Col md="6">
-                                    <Input
-                                      type="password"
-                                      name="password"
-                                      maxLength="12"
-                                      required
-                                      placeholder="Enter Your password"
-                                      value={this.state.password}
-                                      onChange={this.changeHandler}
-                                      className="form-controller"
-                                    />
-                                  </Col>
-                                  <Col md="6">
-                                    <Input
-                                      type="password"
-                                      name="cnfmPassword"
-                                      maxLength="12"
-                                      required
-                                      placeholder="Enter Your Confirm Password"
-                                      value={this.state.cnfmPassword}
-                                      onChange={this.changeHandler}
-                                      className="form-controller"
-                                    />
-                                  </Col>
+                                    {/* <Col md="6">
+                                      <Input
+                                        type="password"
+                                        name="password"
+                                        maxLength="12"
+                                        required
+                                        placeholder="Enter Your password"
+                                        value={this.state.password}
+                                        onChange={this.changeHandler}
+                                        className="form-controller"
+                                      />
+                                    </Col>
+                                    <Col md="6">
+                                      <Input
+                                        type="password"
+                                        name="cnfmPassword"
+                                        maxLength="12"
+                                        required
+                                        placeholder="Enter Your Confirm Password"
+                                        value={this.state.cnfmPassword}
+                                        onChange={this.changeHandler}
+                                        className="form-controller"
+                                      />
+                                    </Col> */}
                                   <Col md="6">
                                     <Input
                                       type="date"
@@ -326,6 +318,16 @@ export default class LoginRegister extends Component {
                                       required
                                       value={this.state.dob}
                                       onChange={this.changeHandler}
+                                      className="form-controller"
+                                    />
+                                  </Col>
+                                  <Col md="6">
+                                    {/* <h3>User Image</h3> */}
+                                    <Label>Profile</Label>
+                                    <Input
+                                      type="file"
+                                      name="userimg"
+                                      onChange={this.onChangeHandler}
                                       className="form-controller"
                                     />
                                   </Col>

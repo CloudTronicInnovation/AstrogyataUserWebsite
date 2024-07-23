@@ -16,6 +16,10 @@ import TermsOfUse from "./wrappers/myPage/TermsOfUse";
 // import {} from "react";
 import { history } from "./history";
 
+
+import { AuthProvider } from './AuthContext.js';
+import AuthGuard from './AuthGuard';
+
 const HomeFurnitureTwo = lazy(() => import("./pages/home/HomeFurnitureTwo"));
 
 // shop pages
@@ -398,6 +402,7 @@ const App = (props) => {
   return (
     <ToastProvider placement="bottom-left">
       <BreadcrumbsProvider>
+      <AuthProvider>
         <Router history={history}>
           <ScrollToTop>
             <Suspense
@@ -1144,6 +1149,7 @@ const App = (props) => {
             </Suspense>
           </ScrollToTop>
         </Router>
+        </AuthProvider>
       </BreadcrumbsProvider>
     </ToastProvider>
   );
