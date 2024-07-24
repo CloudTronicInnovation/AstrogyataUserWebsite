@@ -8,6 +8,8 @@ import ChatAppList from "./ChatAppList";
 import ChatAppMassage from "./ChatAppMassage";
 import axiosConfig from "../../axiosConfig";
 import { Fetchuserdetail } from "../header/IconGroup";
+import { MdInsertPhoto } from "react-icons/md";
+import { IoSendSharp } from "react-icons/io5";
 import swal from "sweetalert";
 import Swal from "sweetalert2";
 import { useAuth } from "../../AuthContext";
@@ -34,6 +36,7 @@ class ChatApp extends React.Component {
       userId: "",
       astroId: "",
       msg: "hello",
+      image: null,
       roomId: "",
       time: {},
       seconds: 60 * 15,
@@ -42,6 +45,10 @@ class ChatApp extends React.Component {
     this.timer = 0;
     this.startTimer = this.startTimer.bind(this);
     this.countDown = this.countDown.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleImageChange = this.handleImageChange.bind(this);
+    this.submitHandler = this.submitHandler.bind(this);
+    this.fileInputRef = React.createRef();
   }
 
   secondsToTime(secs) {
@@ -585,10 +592,11 @@ class ChatApp extends React.Component {
     const astroId = localStorage.getItem("astroId");
     let userid = JSON.parse(localStorage.getItem("user_id"));
     if (userid !== "" && userid !== null) {
-      if (this.state.msg !== "") {
+      if (this.state.msg !== "" || this.state.image !== null) {
         let obj = {
           astroid: astroId,
           msg: this.state.msg,
+          img: this.state.image,
         };
         // console.log("obj", obj);
         axiosConfig
@@ -596,7 +604,8 @@ class ChatApp extends React.Component {
           .then((response) => {
             this.setState({ chatRoomdata: response.data.data });
             if (response.data.status === true) {
-              this.setState({ msg: "" });
+              this.setState({ msg: "", image: null });
+              this.fileInputRef.current.value = "";
               axiosConfig
                 .get(`/user/allchatwithuser/${response.data?.data?.roomid}`)
                 .then((respons) => {
@@ -700,6 +709,19 @@ class ChatApp extends React.Component {
       this.setState({ checkRoomStatusFlag: false });
     }
   };
+
+  handleImageChange(e) {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        this.setState({ image: reader.result }, () => {
+          console.log("Base64 Image String:", this.state.image); // Log the base64 string
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  }
 
   handleChange = (e) => {
     this.setState({
@@ -805,26 +827,32 @@ class ChatApp extends React.Component {
                       />
                     </div>
 
-                    <form className="messages-inputs">
+                    <form
+                      className="messages-inputs"
+                      onSubmit={this.submitHandler}
+                    >
                       <input
                         type="text"
                         placeholder="Send a message"
-                        onChange={(e) => {
-                          this.handleChange(e);
-                        }}
+                        onChange={this.handleChange}
                         value={this.state.msg}
                       />
-
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={this.handleImageChange}
+                        ref={this.fileInputRef}
+                        style={{ display: "none" }} // Hide the default file input
+                      />
                       <button
-                        onClick={(e) => {
-                          this.submitHandler(
-                            e,
-                            this.state.astroId,
-                            this.state.userId
-                          );
-                        }}
+                        type="button"
+                        onClick={() => this.fileInputRef.current.click()}
                       >
-                        <i className="material-icons">Send</i>
+                        <MdInsertPhoto size={30} />
+                      </button>
+                      <button type="submit">
+                        <IoSendSharp size={30} />
+                        {/* <i className="material-icons">send</i>  */}
                       </button>
                     </form>
                   </div>

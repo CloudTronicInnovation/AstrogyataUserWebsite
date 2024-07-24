@@ -24,8 +24,13 @@ class ChatAppMassage extends React.Component {
                         <div
                           className="message-body"
                           dangerouslySetInnerHTML={{ __html: chat.msg }}
-                        />
-                      </div>
+                          
+                        /> <img
+                        src={chat.img}
+                        style={{ maxWidth: "40%", height: "auto" }}
+                      />
+                        </div>
+
                     ) : (
                       <div className="message">
                         <div className="message-body abc">
