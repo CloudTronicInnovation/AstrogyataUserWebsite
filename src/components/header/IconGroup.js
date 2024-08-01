@@ -204,9 +204,9 @@ const IconGroup = ({
                     <span className="ml-2">
                       ₹
                       {userBalance ? (
-                        <>{userBalance}</>
+                        <>{Math.floor(userBalance)}</>
                       ) : (
-                        <>{customer?.amount}</>
+                        <>{Math.floor(customer?.amount)}</>
                       )}
                     </span>
                   </Link>

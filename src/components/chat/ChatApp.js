@@ -37,6 +37,7 @@ class ChatApp extends React.Component {
       astroId: "",
       msg: "hello",
       image: null,
+      selectedImagePath: "",
       roomId: "",
       time: {},
       seconds: 60 * 15,
@@ -253,8 +254,10 @@ class ChatApp extends React.Component {
 
   sendChatDetails = () => {
     const astroId = localStorage.getItem("astroId");
+    const astroName= localStorage.getItem("astroname")
     const UserChatData = JSON.parse(localStorage.getItem("UserChatData"));
     let userid = JSON.parse(localStorage.getItem("user_id"));
+
 
     // if (userid !== "" && userid !== null) {
     //   if (this.state.msg !== "") {
@@ -268,9 +271,19 @@ class ChatApp extends React.Component {
     if (userid !== "" && userid !== null) {
       let message;
       if (UserChatData !== null) {
-        message = `First Name: ${UserChatData.firstname}, Birth Place: ${UserChatData.birthPlace}, Birth Time: ${UserChatData.date_of_time}, Date Birth: ${UserChatData.dob}, Gender: ${UserChatData.gender}`;
+        message =  `Namste ${astroName} ji,Below are my details, <br>
+        FirstName: ${UserChatData?.firstname}<br>
+        BirthPlace: ${UserChatData?.birthPlace}<br>
+        Date Of Time: ${UserChatData?.date_of_time}<br>
+        Date Of Birth: ${UserChatData?.dob}<br>
+        Gender: ${UserChatData?.gender}<br>`;
+        //   message = `First Name: ${UserChatData.firstname}
+        // Birth Place: ${UserChatData.birthPlace}
+        // Birth Time: ${UserChatData.date_of_time}
+        // Date of Birth: ${UserChatData.dob}
+        // Gender: ${UserChatData.gender}`;
       } else {
-        message = "Namaste Ji";
+        message = `Namste ${astroName} ji`;
       }
       if (this.state.msg !== "") {
         let obj = {
@@ -604,7 +617,7 @@ class ChatApp extends React.Component {
           .then((response) => {
             this.setState({ chatRoomdata: response.data.data });
             if (response.data.status === true) {
-              this.setState({ msg: "", image: null });
+              this.setState({ msg: "", image: null, selectedImagePath: "" });
               this.fileInputRef.current.value = "";
               axiosConfig
                 .get(`/user/allchatwithuser/${response.data?.data?.roomid}`)
@@ -715,9 +728,12 @@ class ChatApp extends React.Component {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        this.setState({ image: reader.result }, () => {
-          console.log("Base64 Image String:", this.state.image); // Log the base64 string
-        });
+        this.setState(
+          { image: reader.result, selectedImagePath: file.name },
+          () => {
+            // console.log("Base64 Image String:", this.state.image);
+          }
+        );
       };
       reader.readAsDataURL(file);
     }
@@ -837,12 +853,24 @@ class ChatApp extends React.Component {
                         onChange={this.handleChange}
                         value={this.state.msg}
                       />
+                      {/* {this.state.image && (
+                        <div>
+                          <img
+                            src={this.state.image}
+                            alt="Selected"
+                            style={{ maxWidth: "100px", maxHeight: "10px" }}
+                          />
+                        </div>
+                      )} */}
+                      {this.state.selectedImagePath && (
+                        <p>{this.state.selectedImagePath}</p>
+                      )}
                       <input
                         type="file"
                         accept="image/*"
                         onChange={this.handleImageChange}
                         ref={this.fileInputRef}
-                        style={{ display: "none" }} // Hide the default file input
+                        style={{ display: "none" }}
                       />
                       <button
                         type="button"

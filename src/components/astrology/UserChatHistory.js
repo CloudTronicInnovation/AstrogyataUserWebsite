@@ -26,27 +26,29 @@ class UserChatHistory extends React.Component {
           sortable: true,
           filter: true,
         },
+        // {
+        //   headerName: "Conversation Type",
+        //   field: "type",
+        //   sortable: true,
+        //   filter: "agNumberColumnFilter",
+        // },
         {
-          headerName: "Conversation Type",
-          field: "type",
-          sortable: true,
-          filter: "agNumberColumnFilter",
-        },
-        {
-          headerName: "Rate",
+          headerName: "Call Charges",
           field: "totalCredited",
           sortable: true,
           filter: "agNumberColumnFilter",
         },
         {
-          headerName: "Amount",
+          headerName: "Wallet Amount",
           field: "userAmt",
           sortable: true,
           filter: "agNumberColumnFilter",
+          valueGetter: (params) => {
+            return Math.floor(params.data.userAmt);
+          },
         },
-
         {
-          headerName: "Deduction",
+          headerName: "Deduction Amount",
           field: "userdeductedAmt",
           sortable: true,
           filter: "agNumberColumnFilter",
@@ -159,7 +161,7 @@ class UserChatHistory extends React.Component {
 
                     <h3>
                       Available balance :
-                      <span>Rs {this.state.WalletBalance}</span>
+                      <span>Rs {Math.floor(this.state.WalletBalance)}</span>
                     </h3>
                   </div>
                 </Col>

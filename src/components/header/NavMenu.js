@@ -267,7 +267,7 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
               }}
             >
               {/* Available bal:<b>{data.amount}₹</b> */}
-              Available bal:<b>{walletmoney.amount}₹</b>
+              Available bal:<b>{Math.floor(walletmoney.amount)}₹</b>
             </Link>
           </li>
   

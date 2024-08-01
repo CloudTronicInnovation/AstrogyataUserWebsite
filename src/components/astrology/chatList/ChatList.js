@@ -122,7 +122,7 @@ class ChatList extends React.Component {
     const data = {
       userid: userId,
       astroid: astroId,
-      userintakeid:list._id,
+      userintakeid: list._id,
       type: "Chat",
     };
 
@@ -145,7 +145,7 @@ class ChatList extends React.Component {
   handleChatWithoutDetails = () => {
     let userId = JSON.parse(localStorage.getItem("user_id"));
     let astroId = localStorage.getItem("astroId");
-    localStorage.removeItem("UserChatData")
+    localStorage.removeItem("UserChatData");
 
     const data = {
       userid: userId,
@@ -168,7 +168,6 @@ class ChatList extends React.Component {
         console.log(error);
       });
   };
-
 
   getBirthPlace(data) {
     // check if object
@@ -216,23 +215,27 @@ class ChatList extends React.Component {
           <div className="category-home">
             <section className="pt-0">
               <Container>
-                <Row> 
-                <div className="my-1">
-                    {/* <Link to="/userrequestform" className="btn btn-denger wr"> */}
-                      <button 
-                       className="btn btn-danger wr"
-                       onClick={this.handleChatWithoutDetails}
+                <Row>
+                  <div
+                    className="my-1"
+                    style={{ display: "flex", alignItems: "baseline" }}
+                  >
+                    <div className="my-1">
+                      <button
+                      class="btn btn-secondary"
+                        onClick={this.handleChatWithoutDetails}
                       >
                         Chat Without Birth Details
                       </button>
-                    {/* </Link> */}
-                  </div>
-                  <div className="my-1">
-                    <Link to="/userrequestform" className="btn btn-denger wr">
-                      <button className="btn btn-denger wr">
-                        Add New Birth Details
-                      </button>
-                    </Link>
+                      {/* </Link> */}
+                    </div>
+                    <div className="my-1">
+                      <Link to="/userrequestform" className="btn btn-denger wr">
+                        <button className="btn btn-denger wr">
+                          Add New Birth Details
+                        </button>
+                      </Link>
+                    </div>
                   </div>
                   {allUserList?.length ? (
                     allUserList?.map((list) => {
@@ -245,7 +248,7 @@ class ChatList extends React.Component {
                                 <li className="">
                                   FirstName:
                                   <span> {list.firstname.toUpperCase()}</span>
-                                   {/* <li>
+                                  {/* <li>
                                     <img
                                       src={list.file}
                                       alt=""

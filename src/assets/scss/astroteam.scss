@@ -40,8 +40,10 @@ section .section-title {
 }
 
 #team .card {
+
   border: none;
   background: #ffffff;
+  height: 10px; //remove it if gives problem
 }
 
 // .image-flip:hover .backside,
@@ -144,8 +146,10 @@ a:hover {
 }
 
 .frontside .card .card-body img {
-  width: 150px;
-  height: 150px;
+  // width: 150px;
+  // height: 150px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
 }

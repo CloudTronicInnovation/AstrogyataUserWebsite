@@ -6,6 +6,7 @@ import astrologinbg from "../../../assets/img/astrologin-bg.jpg";
 import axiosConfig from "../../../axiosConfig";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import swal from "sweetalert";
+import Swal from 'sweetalert2'
 
 class CallList extends PureComponent {
   constructor(props) {
@@ -143,7 +144,13 @@ class CallList extends PureComponent {
       .post(`/user/addCallWallet`, obj)
       .then((ress) => {
         if (ress.data.status === true) {
-          swal("Please wait while the astrologer to accept your call request!");
+          Swal.fire({
+            title: "Please Wait",
+            text: "While the astrologer to accept your call request!",
+            confirmButtonText: "Ok",
+            timer: 3000,
+            width: 300
+          });
           // axiosConfig
           //   .post(`/user/make_call`, obj, {
           //     // params: {
@@ -179,6 +186,35 @@ class CallList extends PureComponent {
         swal("Error", err);
         // Enable the call button immediately if there's an error
         this.setState({ callingDisabled: false });
+      });
+  };
+
+  //call without intanke form
+  handleCallWithoutDetails = () => {
+    let userId = JSON.parse(localStorage.getItem("user_id"));
+    let mobileNo = JSON.parse(localStorage.getItem("user_mobile_no"));
+    let astroid = localStorage.getItem("astroId");
+    let obj = {
+      userid: userId,
+      astroid: astroid,
+      From: this.state.mobile, //astro no
+      To: mobileNo, //user no
+      type: "Call",
+    };
+
+    axiosConfig
+      .post(`/user/addCallWallet`, obj)
+      .then((ress) => {
+        if (ress.data.status === true) {
+          swal("Please wait while the astrologer to accept your call request!");
+        } else {
+          swal("Alert", "Insufficient Balance");
+        }
+      })
+      .catch((err) => {
+        console.log("err", err);
+        swal("Error", err);
+        // Enable the call button immediately if there's an error
       });
   };
 
@@ -245,7 +281,7 @@ class CallList extends PureComponent {
               <Row>
                 <Col md="12">
                   <div className="leftcont text-left">
-                    <h1 style={{ color: "#fff" }}>User List </h1>
+                    <h1 style={{ color: "#fff" }}>User Call List </h1>
                   </div>
                 </Col>
               </Row>
@@ -257,6 +293,15 @@ class CallList extends PureComponent {
             <section className="pt-0">
               <Container>
                 <Row>
+                  <div className="my-1" style={{display:"flex", alignItems:"baseline"}}>
+                    <div>
+                    <button
+                      class="btn btn-secondary"
+                      onClick={this.handleCallWithoutDetails}
+                    >
+                      Start Call Without Birth Detail
+                    </button>
+                  </div>
                   <div className="my-1">
                     <Link
                       to="/userrequestformCall"
@@ -267,6 +312,8 @@ class CallList extends PureComponent {
                       </button>
                     </Link>
                   </div>
+                  </div>
+                
                   {allUserList?.length ? (
                     allUserList?.map((list, index) => {
                       return (
@@ -301,7 +348,9 @@ class CallList extends PureComponent {
                                 </li>
                                 <li>
                                   Date Of Time:
-                                  <span className="ms-1">{list.date_of_time}</span>
+                                  <span className="ms-1">
+                                    {list.date_of_time}
+                                  </span>
                                 </li>
                                 <li>
                                   Date Of Birth:
@@ -326,25 +375,33 @@ class CallList extends PureComponent {
                                 {list.p_birthPlace ? (
                                   <li>
                                     Partner BirthPlace:
-                                    <span className="ms-1">{list.p_birthPlace}</span>
+                                    <span className="ms-1">
+                                      {list.p_birthPlace}
+                                    </span>
                                   </li>
                                 ) : null}
                                 {list.p_date_of_time ? (
                                   <li>
                                     Partner Date Of Time:
-                                    <span className="ms-1">{list.p_date_of_time}</span>
+                                    <span className="ms-1">
+                                      {list.p_date_of_time}
+                                    </span>
                                   </li>
                                 ) : null}
                                 {list.p_firstname ? (
                                   <li>
                                     Partner First Name:
-                                    <span className="ms-1">{list.p_firstname}</span>
+                                    <span className="ms-1">
+                                      {list.p_firstname}
+                                    </span>
                                   </li>
                                 ) : null}
                                 {list.p_lastname ? (
                                   <li>
                                     Partner Last Name:
-                                    <span className="ms-1">{list.p_lastname}</span>
+                                    <span className="ms-1">
+                                      {list.p_lastname}
+                                    </span>
                                   </li>
                                 ) : null}
                                 {this.state.startCallFlag ? (

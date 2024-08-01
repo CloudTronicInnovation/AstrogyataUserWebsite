@@ -97,7 +97,7 @@ class WalletMoney extends React.Component {
                   <div className="leftcont text-left">
                     <h1>Add Money to Wallet</h1>
                     <h3>
-                      Available balance : <span>{this.state.amount}</span>
+                      Available balance : <span>{Math.floor(this.state.amount)}</span>
                     </h3>
                   </div>
                 </Col>

@@ -441,7 +441,7 @@ class AllAstrologerList extends React.Component {
                                     </h4>
                                     <ul className="mb-3">
                                       <li>
-                                        Specility:
+                                        {/* Specility: */}
                                         <span>
                                           {astrologer?.all_skills?.length > 5
                                             ? astrologer?.all_skills?.substring(
@@ -452,13 +452,13 @@ class AllAstrologerList extends React.Component {
                                         </span>
                                       </li>
                                       <li>
-                                        Language:
+                                        {/* Language: */}
                                         <span>{astrologer?.language}</span>
                                       </li>
                                       <li>
                                         Experience:
                                         <span>
-                                          {astrologer?.exp_in_years}years
+                                          {astrologer?.exp_in_years} Years
                                         </span>
                                       </li>
                                       <li>
