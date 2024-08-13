@@ -1,5 +1,6 @@
 import React from "react";
-
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
 import { Container, Row, Col, Table } from "reactstrap";
 import astrologinbg from "../../assets/img/astrologin-bg.jpg";
 import LayoutOne from "../../layouts/LayoutOne";
@@ -26,10 +27,9 @@ class UserCallHistory extends React.Component {
           field: "Sid",
           sortable: true,
           filter: true,
-          
-          
+          width: 270
         },
-   {
+        {
           headerName: "Astrologer Name",
           field: "astroid.fullname",
           sortable: true,
@@ -40,22 +40,24 @@ class UserCallHistory extends React.Component {
           field: "Call",
           sortable: true,
           filter: "agNumberColumnFilter",
-        cellRendererFramework: (params) => {
-          const type = params.data?.userId?.type || "Call";
-          return (
-            <div>
-              <span>{type}</span>
-            </div>
-          );
-        },
+          width:150,
+          cellRendererFramework: (params) => {
+            const type = params.data?.userId?.type || "Call";
+            return (
+              <div>
+                <span>{type}</span>
+              </div>
+            );
+          },
         },
         {
           headerName: "Wallet Amount",
-          field: "userid.amount",
+          field: "userAmt",
           sortable: true,
+          width:130,
           filter: "agNumberColumnFilter",
           valueGetter: (params) => {
-            return Math.floor(params.data.userid.amount);
+            return Math.floor(params.data.userAmt);
           },
         },
 
@@ -63,24 +65,27 @@ class UserCallHistory extends React.Component {
           headerName: "Call Charges",
           field: "totalCredited",
           sortable: true,
+          width:120,
           filter: "agNumberColumnFilter",
         },
         {
-          headerName: "Duration",
+          headerName: "Call Duration",
           field: "Duration",
+          width:120,
           sortable: true,
           filter: "agNumberColumnFilter",
           valueGetter: (params) => {
-            const totalSeconds = params.data.totalDuration;
+            const totalSeconds = params.data.Duration;
             const minutes = Math.floor(totalSeconds / 60);
             const seconds = totalSeconds % 60;
-            const formattedMinutes = String(minutes).padStart(2, '0');
-            const formattedSeconds = String(seconds).padStart(2, '0');
-            return `${formattedMinutes}:${formattedSeconds}`;
+            const formattedMinutes = String(minutes).padStart(2, "0");
+            const formattedSeconds = String(seconds).padStart(2, "0");
+            return `${formattedMinutes}:${formattedSeconds} Min`;
           },
         },
         {
           headerName: "Date",
+          width:120,
           valueGetter: function (params) {
             return params.data.createdAt.split("T")[0];
           },
@@ -89,15 +94,39 @@ class UserCallHistory extends React.Component {
         },
         {
           headerName: "Time",
+          width:120,
           valueGetter: function (params) {
-            const date=new Date(params.data.createdAt)
+            const date = new Date(params.data.createdAt);
             return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
             // return params.data.createdAt.split("T")[1].split(".")[0];
           },
           sortable: true,
           filter: "agNumberColumnFilter",
         },
-      ]
+        {
+          headerName: "Call Record",
+          field: "RecordingUrl",
+          sortable: true,
+          filter: "agNumberColumnFilter",
+          cellRendererFramework: (params) => {
+            const { value } = params;
+            return (
+              <>
+                {value ? (
+                  <button
+                    class="btn btn-warning btn-sm"
+                    onClick={() => this.handlePlayPause(value)}
+                  >
+                    Play
+                  </button>
+                ) : (
+                  <span>No recording available</span>
+                )}
+              </>
+            );
+          },
+        },
+      ],
     };
   }
   componentDidMount() {
@@ -105,17 +134,56 @@ class UserCallHistory extends React.Component {
 
     axiosConfig
       .get(`/user/userCallHistory/${userId}`)
-      .then(response => {
+      .then((response) => {
         if (response.data.status === true) {
           this.setState({
             userChatList: response?.data?.data,
           });
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
+
+  handlePlayPause = (audioUrl) => {
+    Swal.fire({
+      title: "Recorded Call",
+      width: 400,
+      html: `
+        <audio id="audioPlayer" controls>
+          <source src="${audioUrl}" type="audio/mp3" />
+        </audio>
+        <br />
+        <button id="playButton"  class="btn btn-secondary">Play</button>
+        <button id="pauseButton" class="btn btn-danger">Pause</button>
+      `,
+
+      confirmButtonText: "Close",
+      didOpen: () => {
+        const audioPlayer = document.getElementById("audioPlayer");
+        const playButton = document.getElementById("playButton");
+        const pauseButton = document.getElementById("pauseButton");
+
+        playButton.addEventListener("click", () => {
+          audioPlayer.play();
+        });
+        pauseButton.addEventListener("click", () => {
+          audioPlayer.pause();
+        });
+
+        // Store reference to the audio player
+        this.setState({ audioPlayer, audioUrl });
+      },
+      willClose: () => {
+        // Stop and reset audio player on modal close
+        if (this.state.audioPlayer) {
+          this.state.audioPlayer.pause();
+          this.state.audioPlayer.currentTime = 0;
+        }
+      },
+    });
+  };
 
   render() {
     const { userChatList } = this.state;
@@ -164,7 +232,9 @@ class UserCallHistory extends React.Component {
               columnDefs={this.state?.columns}
               rowData={userChatList}
               pagination={true}
-              paginationPageSize={50}
+              paginationPageSize={20}
+              rowHeight={50}
+              colWidth={150}
             />
           </div>
         </section>

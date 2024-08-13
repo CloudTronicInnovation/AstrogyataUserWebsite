@@ -152,6 +152,7 @@ const KundliReport = () => {
       })
       .then((res) => {
         setPlanetaryPosition(res.data);
+        console.log(res);
       })
       .catch((err) => {
         setPlanetaryPosition({});
@@ -717,7 +718,7 @@ const KundliReport = () => {
                                 <tr>
                                   <th>Planet</th>
                                   <th>Rashi</th>
-                                  <th>Longitude</th>
+                                  <th>Norm Degree</th>
                                   <th>Nakshatra</th>
                                   <th>Pada</th>
                                 </tr>
@@ -728,7 +729,7 @@ const KundliReport = () => {
                                     <tr key={key}>
                                       <td>{planet.name}</td>
                                       <td>{planet.sign}</td>
-                                      <td>{decimalToDMS(planet.fullDegree)}</td>
+                                      <td>{decimalToDMS(planet.normDegree)}</td>
                                       <td>{planet.nakshatra}</td>
                                       <td>{planet.nakshatra_pad}</td>
                                     </tr>

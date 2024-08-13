@@ -11,7 +11,6 @@ import { Badge } from "reactstrap";
 import { Bell } from "react-feather";
 import { astroNotification } from "../../redux/actions/astoStatusAction";
 
-
 const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
   const [category, setCategoryList] = useState([]);
   const [walletmoney, setWalletMoney] = useState([]);
@@ -65,7 +64,7 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
   const wallet = () => {
     let user_id = JSON.parse(localStorage.getItem("user_id"));
     axiosConfig
-    .get(`/user/viewoneuser/${user_id}`)
+      .get(`/user/viewoneuser/${user_id}`)
       .then((response) => {
         // console.log("Wallet Money", response.data.data);
         setWalletMoney(response.data.data);
@@ -76,7 +75,6 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
   };
   useEffect(() => {
     wallet();
-
   }, []);
 
   const items = [
@@ -138,7 +136,6 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
     // console.log('Focused')
   };
 
-  
   // const checkAstroStatus=()=>{
   //   const astroid =localStorage.getItem('astro_id_to_notify');
   //   // if(astroid!=null){
@@ -267,10 +264,16 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
               }}
             >
               {/* Available bal:<b>{data.amount}₹</b> */}
-              Available bal:<b>{Math.floor(walletmoney.amount)}₹</b>
+              Available bal:
+              <b>
+                {walletmoney.amount != null && !isNaN(walletmoney.amount)
+                  ? Math.floor(walletmoney.amount)
+                  : 0}
+                ₹
+              </b>
             </Link>
           </li>
-  
+
           <li>
             <Link to="/notificationlist">
               <Bell size={21} />
